@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9mV-M4-oVE">
+    <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="3PS-e7-ApE">
+            <objects>
+                <collectionViewController storyboardIdentifier="CardViewController" autoresizesArchivedViewToFullSize="NO" id="9mV-M4-oVE" customClass="ViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="8co-pb-FP5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.21097995923913049" green="0.21097995923913049" blue="0.21097995923913049" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="GF9-Gq-tzJ" customClass="MTDraggableCardLayout"/>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="9mV-M4-oVE" id="bzf-Uy-mOp"/>
+                            <outlet property="delegate" destination="9mV-M4-oVE" id="erD-AN-PeM"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HSI-KV-9Uz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="236" y="167"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="5d7-q2-HI1">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="f0z-Gw-uhi" customClass="SearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iyU-zq-VOg"/>
+                        <viewControllerLayoutGuide type="bottom" id="LOn-vr-cwM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="K84-Z1-EHn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zZ7-s0-EZ5">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.083765146683673519" green="0.083765146683673519" blue="0.083765146683673519" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Oax-jm-Gx9">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Oax-jm-Gx9" id="o5s-LK-oMG">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="f0z-Gw-uhi" id="box-Tj-wxU"/>
+                                    <outlet property="delegate" destination="f0z-Gw-uhi" id="T8k-sY-APs"/>
+                                </connections>
+                            </tableView>
+                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="r5z-u0-ha7">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fxH-iz-oBT"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="f0z-Gw-uhi" id="Dxv-PP-bLb"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zZ7-s0-EZ5" secondAttribute="trailing" id="0Oz-p7-XPj"/>
+                            <constraint firstItem="LOn-vr-cwM" firstAttribute="top" secondItem="zZ7-s0-EZ5" secondAttribute="bottom" id="15Q-3k-Lka"/>
+                            <constraint firstItem="zZ7-s0-EZ5" firstAttribute="top" secondItem="r5z-u0-ha7" secondAttribute="bottom" id="2YQ-Df-V5Z"/>
+                            <constraint firstAttribute="trailing" secondItem="r5z-u0-ha7" secondAttribute="trailing" id="66X-eu-TLv"/>
+                            <constraint firstItem="zZ7-s0-EZ5" firstAttribute="leading" secondItem="K84-Z1-EHn" secondAttribute="leading" id="9go-Rl-aTQ"/>
+                            <constraint firstItem="r5z-u0-ha7" firstAttribute="top" secondItem="K84-Z1-EHn" secondAttribute="top" constant="20" id="azu-Nl-9eH"/>
+                            <constraint firstItem="r5z-u0-ha7" firstAttribute="leading" secondItem="K84-Z1-EHn" secondAttribute="leading" id="hdp-sG-05K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="r5z-u0-ha7" id="G4C-lX-Lik"/>
+                        <outlet property="tableView" destination="zZ7-s0-EZ5" id="fW9-hb-7nr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P3J-gr-lLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="688" y="169"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

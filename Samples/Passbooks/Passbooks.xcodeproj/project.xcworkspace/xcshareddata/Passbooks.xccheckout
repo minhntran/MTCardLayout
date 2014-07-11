@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A0852743-FE7C-4676-AA8E-8708FF6035FC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Passbooks</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AB26675F-B85E-4326-922B-D017EDBB978F</key>
+		<string>https://github.com/CanTheAlmighty/PassbookLayout.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Samples/Passbooks/Passbooks.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AB26675F-B85E-4326-922B-D017EDBB978F</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/CanTheAlmighty/PassbookLayout.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AB26675F-B85E-4326-922B-D017EDBB978F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AB26675F-B85E-4326-922B-D017EDBB978F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PassbookLayout</string>
+		</dict>
+	</array>
+</dict>
+</plist>

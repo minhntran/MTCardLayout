@@ -1,0 +1,583 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AA64720D8C7440A83609579 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7CF7EB7B5054D0AA4E8269D /* libPods.a */; };
+		3629218318C72E9800161E43 /* PassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3629218218C72E9800161E43 /* PassCell.xib */; };
+		364AA2F018C55EBD00EC2140 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2EF18C55EBD00EC2140 /* Foundation.framework */; };
+		364AA2F218C55EBD00EC2140 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2F118C55EBD00EC2140 /* CoreGraphics.framework */; };
+		364AA2F418C55EBD00EC2140 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2F318C55EBD00EC2140 /* UIKit.framework */; };
+		364AA2FA18C55EBD00EC2140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 364AA2F818C55EBD00EC2140 /* InfoPlist.strings */; };
+		364AA2FC18C55EBD00EC2140 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA2FB18C55EBD00EC2140 /* main.m */; };
+		364AA30018C55EBD00EC2140 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA2FF18C55EBD00EC2140 /* AppDelegate.m */; };
+		364AA30318C55EBD00EC2140 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 364AA30118C55EBD00EC2140 /* Main.storyboard */; };
+		364AA30618C55EBD00EC2140 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA30518C55EBD00EC2140 /* ViewController.m */; };
+		364AA30818C55EBD00EC2140 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364AA30718C55EBD00EC2140 /* Images.xcassets */; };
+		364AA30F18C55EBD00EC2140 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA30E18C55EBD00EC2140 /* XCTest.framework */; };
+		364AA31018C55EBD00EC2140 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2EF18C55EBD00EC2140 /* Foundation.framework */; };
+		364AA31118C55EBD00EC2140 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2F318C55EBD00EC2140 /* UIKit.framework */; };
+		364AA31918C55EBD00EC2140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 364AA31718C55EBD00EC2140 /* InfoPlist.strings */; };
+		364AA31B18C55EBD00EC2140 /* PassbooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA31A18C55EBD00EC2140 /* PassbooksTests.m */; };
+		364AA32B18C5606600EC2140 /* PassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA32A18C5606600EC2140 /* PassCell.m */; };
+		BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA17D52F196CF6A80054D9EC /* SearchViewController.m */; };
+		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
+		BA3C688319703735004A0ADF /* MTCardBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687319703735004A0ADF /* MTCardBackgroundView.m */; };
+		BA3C688419703735004A0ADF /* MTCardCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */; };
+		BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687719703735004A0ADF /* MTCardLayout.m */; };
+		BA3C688619703735004A0ADF /* MTCardShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687919703735004A0ADF /* MTCardShadowView.m */; };
+		BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */; };
+		BA3C688819703735004A0ADF /* UICollectionView+CardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687D19703735004A0ADF /* UICollectionView+CardLayout.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		364AA31218C55EBD00EC2140 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 364AA2E418C55EBD00EC2140 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 364AA2EB18C55EBD00EC2140;
+			remoteInfo = Passbooks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3629218218C72E9800161E43 /* PassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassCell.xib; sourceTree = "<group>"; };
+		364AA2EC18C55EBD00EC2140 /* Passbooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passbooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		364AA2EF18C55EBD00EC2140 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		364AA2F118C55EBD00EC2140 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		364AA2F318C55EBD00EC2140 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		364AA2F718C55EBD00EC2140 /* Passbooks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Passbooks-Info.plist"; sourceTree = "<group>"; };
+		364AA2F918C55EBD00EC2140 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		364AA2FB18C55EBD00EC2140 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		364AA2FD18C55EBD00EC2140 /* Passbooks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Passbooks-Prefix.pch"; sourceTree = "<group>"; };
+		364AA2FE18C55EBD00EC2140 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		364AA2FF18C55EBD00EC2140 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		364AA30218C55EBD00EC2140 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		364AA30418C55EBD00EC2140 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		364AA30518C55EBD00EC2140 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		364AA30718C55EBD00EC2140 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		364AA30D18C55EBD00EC2140 /* PassbooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassbooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		364AA30E18C55EBD00EC2140 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		364AA31618C55EBD00EC2140 /* PassbooksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PassbooksTests-Info.plist"; sourceTree = "<group>"; };
+		364AA31818C55EBD00EC2140 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		364AA31A18C55EBD00EC2140 /* PassbooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassbooksTests.m; sourceTree = "<group>"; };
+		364AA32918C5606600EC2140 /* PassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassCell.h; sourceTree = "<group>"; };
+		364AA32A18C5606600EC2140 /* PassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassCell.m; sourceTree = "<group>"; };
+		6541C091090547A991F05113 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B7CF7EB7B5054D0AA4E8269D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA17D52E196CF6A80054D9EC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		BA17D52F196CF6A80054D9EC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		BA2A4FE9196E71760074E49E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BA3C687219703735004A0ADF /* MTCardBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardBackgroundView.h; sourceTree = "<group>"; };
+		BA3C687319703735004A0ADF /* MTCardBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardBackgroundView.m; sourceTree = "<group>"; };
+		BA3C687419703735004A0ADF /* MTCardCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardCollectionViewController.h; sourceTree = "<group>"; };
+		BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardCollectionViewController.m; sourceTree = "<group>"; };
+		BA3C687619703735004A0ADF /* MTCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardLayout.h; sourceTree = "<group>"; };
+		BA3C687719703735004A0ADF /* MTCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayout.m; sourceTree = "<group>"; };
+		BA3C687819703735004A0ADF /* MTCardShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardShadowView.h; sourceTree = "<group>"; };
+		BA3C687919703735004A0ADF /* MTCardShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardShadowView.m; sourceTree = "<group>"; };
+		BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
+		BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayout.m; sourceTree = "<group>"; };
+		BA3C687C19703735004A0ADF /* UICollectionView+CardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CardLayout.h"; sourceTree = "<group>"; };
+		BA3C687D19703735004A0ADF /* UICollectionView+CardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CardLayout.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		364AA2E918C55EBD00EC2140 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */,
+				364AA2F218C55EBD00EC2140 /* CoreGraphics.framework in Frameworks */,
+				364AA2F418C55EBD00EC2140 /* UIKit.framework in Frameworks */,
+				364AA2F018C55EBD00EC2140 /* Foundation.framework in Frameworks */,
+				2AA64720D8C7440A83609579 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364AA30A18C55EBD00EC2140 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364AA30F18C55EBD00EC2140 /* XCTest.framework in Frameworks */,
+				364AA31118C55EBD00EC2140 /* UIKit.framework in Frameworks */,
+				364AA31018C55EBD00EC2140 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		364AA2E318C55EBD00EC2140 = {
+			isa = PBXGroup;
+			children = (
+				BA3C686619703735004A0ADF /* MTCardLayout */,
+				364AA2F518C55EBD00EC2140 /* Passbooks */,
+				364AA31418C55EBD00EC2140 /* PassbooksTests */,
+				364AA2EE18C55EBD00EC2140 /* Frameworks */,
+				364AA2ED18C55EBD00EC2140 /* Products */,
+				6541C091090547A991F05113 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		364AA2ED18C55EBD00EC2140 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				364AA2EC18C55EBD00EC2140 /* Passbooks.app */,
+				364AA30D18C55EBD00EC2140 /* PassbooksTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		364AA2EE18C55EBD00EC2140 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A4FE9196E71760074E49E /* QuartzCore.framework */,
+				364AA2EF18C55EBD00EC2140 /* Foundation.framework */,
+				364AA2F118C55EBD00EC2140 /* CoreGraphics.framework */,
+				364AA2F318C55EBD00EC2140 /* UIKit.framework */,
+				364AA30E18C55EBD00EC2140 /* XCTest.framework */,
+				B7CF7EB7B5054D0AA4E8269D /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		364AA2F518C55EBD00EC2140 /* Passbooks */ = {
+			isa = PBXGroup;
+			children = (
+				364AA30118C55EBD00EC2140 /* Main.storyboard */,
+				364AA2FE18C55EBD00EC2140 /* AppDelegate.h */,
+				364AA2FF18C55EBD00EC2140 /* AppDelegate.m */,
+				364AA32918C5606600EC2140 /* PassCell.h */,
+				364AA32A18C5606600EC2140 /* PassCell.m */,
+				3629218218C72E9800161E43 /* PassCell.xib */,
+				364AA30418C55EBD00EC2140 /* ViewController.h */,
+				364AA30518C55EBD00EC2140 /* ViewController.m */,
+				BA17D52E196CF6A80054D9EC /* SearchViewController.h */,
+				BA17D52F196CF6A80054D9EC /* SearchViewController.m */,
+				364AA30718C55EBD00EC2140 /* Images.xcassets */,
+				364AA2F618C55EBD00EC2140 /* Supporting Files */,
+			);
+			path = Passbooks;
+			sourceTree = "<group>";
+		};
+		364AA2F618C55EBD00EC2140 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				364AA2F718C55EBD00EC2140 /* Passbooks-Info.plist */,
+				364AA2F818C55EBD00EC2140 /* InfoPlist.strings */,
+				364AA2FB18C55EBD00EC2140 /* main.m */,
+				364AA2FD18C55EBD00EC2140 /* Passbooks-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		364AA31418C55EBD00EC2140 /* PassbooksTests */ = {
+			isa = PBXGroup;
+			children = (
+				364AA31A18C55EBD00EC2140 /* PassbooksTests.m */,
+				364AA31518C55EBD00EC2140 /* Supporting Files */,
+			);
+			path = PassbooksTests;
+			sourceTree = "<group>";
+		};
+		364AA31518C55EBD00EC2140 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				364AA31618C55EBD00EC2140 /* PassbooksTests-Info.plist */,
+				364AA31718C55EBD00EC2140 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BA3C686619703735004A0ADF /* MTCardLayout */ = {
+			isa = PBXGroup;
+			children = (
+				BA3C687219703735004A0ADF /* MTCardBackgroundView.h */,
+				BA3C687319703735004A0ADF /* MTCardBackgroundView.m */,
+				BA3C687419703735004A0ADF /* MTCardCollectionViewController.h */,
+				BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */,
+				BA3C687619703735004A0ADF /* MTCardLayout.h */,
+				BA3C687719703735004A0ADF /* MTCardLayout.m */,
+				BA3C687819703735004A0ADF /* MTCardShadowView.h */,
+				BA3C687919703735004A0ADF /* MTCardShadowView.m */,
+				BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */,
+				BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */,
+				BA3C687C19703735004A0ADF /* UICollectionView+CardLayout.h */,
+				BA3C687D19703735004A0ADF /* UICollectionView+CardLayout.m */,
+			);
+			name = MTCardLayout;
+			path = ../../MTCardLayout;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		364AA2EB18C55EBD00EC2140 /* Passbooks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 364AA31E18C55EBD00EC2140 /* Build configuration list for PBXNativeTarget "Passbooks" */;
+			buildPhases = (
+				5CD32E79742744B486414E29 /* Check Pods Manifest.lock */,
+				364AA2E818C55EBD00EC2140 /* Sources */,
+				364AA2E918C55EBD00EC2140 /* Frameworks */,
+				364AA2EA18C55EBD00EC2140 /* Resources */,
+				D23AD49B454C47DA804B32DC /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Passbooks;
+			productName = Passbooks;
+			productReference = 364AA2EC18C55EBD00EC2140 /* Passbooks.app */;
+			productType = "com.apple.product-type.application";
+		};
+		364AA30C18C55EBD00EC2140 /* PassbooksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 364AA32118C55EBD00EC2140 /* Build configuration list for PBXNativeTarget "PassbooksTests" */;
+			buildPhases = (
+				364AA30918C55EBD00EC2140 /* Sources */,
+				364AA30A18C55EBD00EC2140 /* Frameworks */,
+				364AA30B18C55EBD00EC2140 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				364AA31318C55EBD00EC2140 /* PBXTargetDependency */,
+			);
+			name = PassbooksTests;
+			productName = PassbooksTests;
+			productReference = 364AA30D18C55EBD00EC2140 /* PassbooksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		364AA2E418C55EBD00EC2140 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Jose Luis Canepa";
+				TargetAttributes = {
+					364AA30C18C55EBD00EC2140 = {
+						TestTargetID = 364AA2EB18C55EBD00EC2140;
+					};
+				};
+			};
+			buildConfigurationList = 364AA2E718C55EBD00EC2140 /* Build configuration list for PBXProject "Passbooks" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 364AA2E318C55EBD00EC2140;
+			productRefGroup = 364AA2ED18C55EBD00EC2140 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				364AA2EB18C55EBD00EC2140 /* Passbooks */,
+				364AA30C18C55EBD00EC2140 /* PassbooksTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		364AA2EA18C55EBD00EC2140 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364AA30818C55EBD00EC2140 /* Images.xcassets in Resources */,
+				3629218318C72E9800161E43 /* PassCell.xib in Resources */,
+				364AA2FA18C55EBD00EC2140 /* InfoPlist.strings in Resources */,
+				364AA30318C55EBD00EC2140 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364AA30B18C55EBD00EC2140 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364AA31918C55EBD00EC2140 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5CD32E79742744B486414E29 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D23AD49B454C47DA804B32DC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		364AA2E818C55EBD00EC2140 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364AA30618C55EBD00EC2140 /* ViewController.m in Sources */,
+				BA3C688819703735004A0ADF /* UICollectionView+CardLayout.m in Sources */,
+				BA3C688419703735004A0ADF /* MTCardCollectionViewController.m in Sources */,
+				364AA30018C55EBD00EC2140 /* AppDelegate.m in Sources */,
+				BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */,
+				364AA2FC18C55EBD00EC2140 /* main.m in Sources */,
+				BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */,
+				BA3C688619703735004A0ADF /* MTCardShadowView.m in Sources */,
+				BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */,
+				BA3C688319703735004A0ADF /* MTCardBackgroundView.m in Sources */,
+				364AA32B18C5606600EC2140 /* PassCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		364AA30918C55EBD00EC2140 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				364AA31B18C55EBD00EC2140 /* PassbooksTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		364AA31318C55EBD00EC2140 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 364AA2EB18C55EBD00EC2140 /* Passbooks */;
+			targetProxy = 364AA31218C55EBD00EC2140 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		364AA2F818C55EBD00EC2140 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				364AA2F918C55EBD00EC2140 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		364AA30118C55EBD00EC2140 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				364AA30218C55EBD00EC2140 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		364AA31718C55EBD00EC2140 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				364AA31818C55EBD00EC2140 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		364AA31C18C55EBD00EC2140 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		364AA31D18C55EBD00EC2140 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		364AA31F18C55EBD00EC2140 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6541C091090547A991F05113 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
+				INFOPLIST_FILE = "Passbooks/Passbooks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		364AA32018C55EBD00EC2140 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6541C091090547A991F05113 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
+				INFOPLIST_FILE = "Passbooks/Passbooks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		364AA32218C55EBD00EC2140 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Passbooks.app/Passbooks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PassbooksTests/PassbooksTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		364AA32318C55EBD00EC2140 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Passbooks.app/Passbooks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
+				INFOPLIST_FILE = "PassbooksTests/PassbooksTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		364AA2E718C55EBD00EC2140 /* Build configuration list for PBXProject "Passbooks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				364AA31C18C55EBD00EC2140 /* Debug */,
+				364AA31D18C55EBD00EC2140 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		364AA31E18C55EBD00EC2140 /* Build configuration list for PBXNativeTarget "Passbooks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				364AA31F18C55EBD00EC2140 /* Debug */,
+				364AA32018C55EBD00EC2140 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		364AA32118C55EBD00EC2140 /* Build configuration list for PBXNativeTarget "PassbooksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				364AA32218C55EBD00EC2140 /* Debug */,
+				364AA32318C55EBD00EC2140 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 364AA2E418C55EBD00EC2140 /* Project object */;
+}
