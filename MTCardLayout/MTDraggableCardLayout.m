@@ -28,13 +28,13 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSArray * array = [super layoutAttributesForElementsInRect:rect];
-    if (self.collectionView.movingCell)
+    if (false && self.collectionView.movingCell)
     {
         [array enumerateObjectsUsingBlock:^(UICollectionViewLayoutAttributes *attributes, NSUInteger idx, BOOL *stop) {
             if (attributes.representedElementCategory == UICollectionElementCategoryCell)
             {
                 CGRect frame = attributes.frame;
-                frame.size.height -= self.metrics.collapsed.overlap;
+                frame.size.height = self.metrics.collapsed.size.height - self.metrics.collapsed.overlap;
                 attributes.frame = frame;
             }
         }];

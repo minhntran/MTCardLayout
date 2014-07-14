@@ -24,7 +24,6 @@
 {
 	[super viewDidLoad];
 
-    [self.collectionView registerNib:[UINib nibWithNibName:@"PassCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"pass"];
     self.searchViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchViewController"];
     self.searchViewController.delegate = self;
 	self.collectionView.backgroundView = self.searchViewController.view;
@@ -41,7 +40,7 @@
 {
 	PassCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"pass" forIndexPath:indexPath];
 
-	cell.labelTitle.text = [NSString stringWithFormat:@"Title %d", indexPath.row];
+	cell.titleLabel.text = [NSString stringWithFormat:@"Title %d", (int)indexPath.item];
 	return cell;
 }
 

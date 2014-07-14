@@ -48,6 +48,4 @@ typedef struct
 
 @property (nonatomic) BOOL presenting;
 
-- (void)calcTargetScrollOffset:(inout CGPoint *)targetContentOffset;
-
 @end

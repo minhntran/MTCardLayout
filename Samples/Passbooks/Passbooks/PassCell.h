@@ -2,6 +2,6 @@
 
 @interface PassCell : UICollectionViewCell
 
-@property (nonatomic,weak) IBOutlet UILabel *labelTitle;
+@property (nonatomic,weak) IBOutlet UILabel *titleLabel;
 
 @end

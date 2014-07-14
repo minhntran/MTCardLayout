@@ -64,8 +64,8 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     m.normal.size       = CGSizeMake(screenSize.width, screenSize.height - 64);
     m.normal.overlap    = 0.0;
     
-    m.collapsed.size    = CGSizeMake(screenSize.width, 100.0);
-    m.collapsed.overlap = m.collapsed.size.height - 72.0;
+	m.collapsed.size    = m.normal.size; // CGSizeMake(screenSize.width, 144.0);
+    m.collapsed.overlap = m.collapsed.size.height - 74.0;
     
     m.bottomStackedHeight = 6.0;
     m.bottomStackedTotalHeight = m.bottomStackedHeight * 5;
@@ -193,11 +193,17 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     NSMutableArray *cells = [NSMutableArray arrayWithCapacity:range.length + 2];
     
 	NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
-	NSArray *selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
+	NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 
     for (NSUInteger item=range.location; item < (range.location + range.length); item++)
     {
-        [cells addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] selectedIndexPath:[selectedIndexPaths firstObject] numberOfItems:numberOfItems]];
+        [cells addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] selectedIndexPath:selectedIndexPath numberOfItems:numberOfItems]];
+    }
+    
+    // selected item is out of range
+    if (self.presenting && selectedIndexPath && (selectedIndexPath.item < range.location || selectedIndexPath.item >= range.location + range.length))
+    {
+        [cells addObject:[self layoutAttributesForItemAtIndexPath:selectedIndexPath selectedIndexPath:selectedIndexPath numberOfItems:numberOfItems]];
     }
 	
 	// Decoration views
@@ -211,6 +217,16 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     return cells;
 }
 
+//- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+//{
+//    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
+//    
+//    CGRect bounds = self.collectionView.bounds;
+//    attributes.frame = CGRectMake(0, bounds.origin.y, self.metrics.normal.size.width, self.metrics.normal.size.height);
+//    
+//    return attributes;
+//}
+
 - (CGSize)collectionViewContentSize
 {
     return collectionViewSize(self.collectionView.bounds, [self.collectionView numberOfItemsInSection:0], _metrics);
@@ -223,17 +239,24 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
 
 #pragma mark - Postioning
 
-- (void)calcTargetScrollOffset:(inout CGPoint *)targetContentOffset
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
 {
-	CGFloat flexibleHeight = self.metrics.flexibleTopMaxHeight - self.metrics.flexibleTopMinHeight;
-	if (targetContentOffset->y < flexibleHeight) {
-		targetContentOffset->y = (targetContentOffset->y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
-	} else {
-		CGFloat cellHeight = self.metrics.collapsed.size.height - self.metrics.collapsed.overlap;
-		if (cellHeight > 0) {
-			targetContentOffset->y = roundf((targetContentOffset->y - flexibleHeight) / cellHeight) * cellHeight + flexibleHeight;
-		}
-	}
+    CGPoint targetContentOffset = proposedContentOffset;
+    
+    if (self.collectionView.scrollEnabled)
+    {
+        CGFloat flexibleHeight = self.metrics.flexibleTopMaxHeight - self.metrics.flexibleTopMinHeight;
+        if (targetContentOffset.y < flexibleHeight) {
+            targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
+        } else {
+            CGFloat cellHeight = self.metrics.collapsed.size.height - self.metrics.collapsed.overlap;
+            if (cellHeight > 0) {
+                targetContentOffset.y = roundf((targetContentOffset.y - flexibleHeight) / cellHeight) * cellHeight + flexibleHeight;
+            }
+        }
+    }
+    
+    return targetContentOffset;
 }
 
 #pragma mark Cell visibility

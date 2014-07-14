@@ -13,6 +13,7 @@ static char * const MTCardLayoutBackgroundViewKey = "MTCardLayoutBackgroundView"
 - (void)setBackgroundView:(UIView *)backgroundView
 {
     objc_setAssociatedObject(self, MTCardLayoutBackgroundViewKey, backgroundView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self.collectionViewLayout invalidateLayout];
 }
 
 @end

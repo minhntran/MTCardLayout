@@ -1,7 +1,8 @@
 #import "MTCardCollectionViewController.h"
 #import "MTCardLayout.h"
 
-#define PAN_LIMIT 64.0
+#define DRAG_CURVE_LIMIT 50.0
+#define DRAG_ACTION_LIMIT 200.0
 
 @interface MTCardCollectionViewController ()
 
@@ -73,15 +74,15 @@
 	if (gestureRecognizer.state != UIGestureRecognizerStateCancelled)
 	{
 		CGPoint translation = [gestureRecognizer translationInView:[cell superview]];
-		CGFloat translatedY = PAN_LIMIT * atanf(translation.y / PAN_LIMIT);
+		CGFloat translatedY = translation.y < DRAG_ACTION_LIMIT ? DRAG_CURVE_LIMIT * atanf(translation.y / DRAG_CURVE_LIMIT) : translation.y;
 		cell.frame = CGRectOffset(originFrame, 0, translatedY);
-		
-		if (translatedY > PAN_LIMIT)
-		{
-			[self deselectIndexPath:indexPath updateLayout:YES];
-			return;
-		}
-        else if (translatedY < -PAN_LIMIT)
+        
+        if (translatedY >= DRAG_ACTION_LIMIT)
+        {
+            [self deselectIndexPath:indexPath updateLayout:YES];
+            return;
+        }
+        else if (translatedY < -DRAG_ACTION_LIMIT)
         {
             [self setPresenting:NO animated:YES completion:nil];
             return;
@@ -131,7 +132,7 @@
         UIEdgeInsets edgeInsets = scrollView.contentInset;
         BOOL bounces = scrollView.bounces;
         
-        if (scrollView == self.collectionView && scrollView.contentOffset.y < - PAN_LIMIT - edgeInsets.top && scrollView.scrollEnabled)
+        if (scrollView == self.collectionView && scrollView.contentOffset.y < - 100 - edgeInsets.top && scrollView.scrollEnabled)
         {
             scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, edgeInsets.left, edgeInsets.bottom, edgeInsets.right);
             scrollView.bounces = NO;
@@ -142,14 +143,6 @@
             }];
         }
     }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-	if (scrollView == self.collectionView && scrollView.scrollEnabled)
-	{
-		[self.cardLayout calcTargetScrollOffset:targetContentOffset];
-	}
 }
 
 @end

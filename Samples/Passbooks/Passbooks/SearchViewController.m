@@ -30,6 +30,7 @@
     return cell;
 }
 */
+
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self.searchBar setShowsCancelButton:YES animated:YES];
@@ -48,11 +49,11 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self.searchBar resignFirstResponder];
+    id<SearchViewControllerDelegate> delegate = self.delegate;
+    if (delegate)
+    {
+        [delegate searchControllerWillEndSearch:self];
+    }
 }
 
 @end

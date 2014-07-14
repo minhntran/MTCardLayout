@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2AA64720D8C7440A83609579 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7CF7EB7B5054D0AA4E8269D /* libPods.a */; };
-		3629218318C72E9800161E43 /* PassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3629218218C72E9800161E43 /* PassCell.xib */; };
 		364AA2F018C55EBD00EC2140 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2EF18C55EBD00EC2140 /* Foundation.framework */; };
 		364AA2F218C55EBD00EC2140 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2F118C55EBD00EC2140 /* CoreGraphics.framework */; };
 		364AA2F418C55EBD00EC2140 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364AA2F318C55EBD00EC2140 /* UIKit.framework */; };
@@ -45,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3629218218C72E9800161E43 /* PassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassCell.xib; sourceTree = "<group>"; };
 		364AA2EC18C55EBD00EC2140 /* Passbooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passbooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		364AA2EF18C55EBD00EC2140 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		364AA2F118C55EBD00EC2140 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -154,7 +152,6 @@
 				364AA2FF18C55EBD00EC2140 /* AppDelegate.m */,
 				364AA32918C5606600EC2140 /* PassCell.h */,
 				364AA32A18C5606600EC2140 /* PassCell.m */,
-				3629218218C72E9800161E43 /* PassCell.xib */,
 				364AA30418C55EBD00EC2140 /* ViewController.h */,
 				364AA30518C55EBD00EC2140 /* ViewController.m */,
 				BA17D52E196CF6A80054D9EC /* SearchViewController.h */,
@@ -293,7 +290,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				364AA30818C55EBD00EC2140 /* Images.xcassets in Resources */,
-				3629218318C72E9800161E43 /* PassCell.xib in Resources */,
 				364AA2FA18C55EBD00EC2140 /* InfoPlist.strings in Resources */,
 				364AA30318C55EBD00EC2140 /* Main.storyboard in Resources */,
 			);
