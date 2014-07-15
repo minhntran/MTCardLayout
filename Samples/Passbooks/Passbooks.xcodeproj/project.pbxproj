@@ -26,7 +26,6 @@
 		BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA17D52F196CF6A80054D9EC /* SearchViewController.m */; };
 		BA19B26219750F240088D013 /* UICollectionView+CardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */; };
 		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
-		BA3C688419703735004A0ADF /* MTCardCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */; };
 		BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687719703735004A0ADF /* MTCardLayout.m */; };
 		BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */; };
 /* End PBXBuildFile section */
@@ -70,8 +69,6 @@
 		BA19B26019750F240088D013 /* UICollectionView+CardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CardLayout.h"; sourceTree = "<group>"; };
 		BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CardLayout.m"; sourceTree = "<group>"; };
 		BA2A4FE9196E71760074E49E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BA3C687419703735004A0ADF /* MTCardCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardCollectionViewController.h; sourceTree = "<group>"; };
-		BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardCollectionViewController.m; sourceTree = "<group>"; };
 		BA3C687619703735004A0ADF /* MTCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardLayout.h; sourceTree = "<group>"; };
 		BA3C687719703735004A0ADF /* MTCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayout.m; sourceTree = "<group>"; };
 		BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
@@ -188,8 +185,6 @@
 		BA3C686619703735004A0ADF /* MTCardLayout */ = {
 			isa = PBXGroup;
 			children = (
-				BA3C687419703735004A0ADF /* MTCardCollectionViewController.h */,
-				BA3C687519703735004A0ADF /* MTCardCollectionViewController.m */,
 				BA3C687619703735004A0ADF /* MTCardLayout.h */,
 				BA3C687719703735004A0ADF /* MTCardLayout.m */,
 				BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */,
@@ -334,7 +329,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				364AA30618C55EBD00EC2140 /* ViewController.m in Sources */,
-				BA3C688419703735004A0ADF /* MTCardCollectionViewController.m in Sources */,
 				364AA30018C55EBD00EC2140 /* AppDelegate.m in Sources */,
 				BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */,
 				364AA2FC18C55EBD00EC2140 /* main.m in Sources */,

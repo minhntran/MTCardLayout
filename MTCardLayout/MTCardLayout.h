@@ -2,29 +2,17 @@
 
 typedef struct
 {
-    /// Size of a state of a card
-    CGSize size;
-    
-    /// Amount of "pixels" of overlap between this card and others.
-    CGFloat overlap;
-} MTCardMetrics;
-
-typedef struct
-{
+    // Insets of the fullscreen card
+    UIEdgeInsets insets;
+    // Top flexible inset
 	CGFloat flexibleTopMaxHeight;
-	CGFloat flexibleTopMinHeight;
-	
-    /// Normal is the real size of the selected card ("full screen" display)
-    MTCardMetrics normal;
-    
-    /// Collapsed is the size of cards in the list with no card selected
-    MTCardMetrics collapsed;
-    
-    /// The size of the bottom stack when a card is selected and all others are stacked at bottom
-    CGFloat bottomStackedTotalHeight;
-    
-    /// The visible size of each card in the bottom stack
+    // The visible size of each card in the normal stack
+    CGFloat normalStackedHeight;
+    // The visible size of each card in the bottom stack
     CGFloat bottomStackedHeight;
+	// Max number of card to show at the bottom stack
+    NSUInteger maxBottomCards;
+    
 } MTCardLayoutMetrics;
 
 typedef struct

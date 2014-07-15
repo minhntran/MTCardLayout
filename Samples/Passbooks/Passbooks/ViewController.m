@@ -1,13 +1,14 @@
 #import "ViewController.h"
 #import "PassCell.h"
 #import "MTCardLayout.h"
-#import "MTDraggableCardLayout.h"
 #import "UICollectionView+CardLayout.h"
+#import "LSCollectionViewLayoutHelper.h"
+#import "UICollectionView+Draggable.h"
+#import "SearchViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable>
 
 @property (nonatomic, strong) SearchViewController *searchViewController;
-
 @property (nonatomic, strong) NSMutableArray * items;
 
 @end
@@ -23,10 +24,17 @@
 
 #pragma mark - View Lifecycle
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.collectionView setPresenting:YES animated:YES completion:nil];
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    
+
+    [self.collectionView enableCardLayoutGestures];
+
     self.items = [NSMutableArray arrayWithCapacity:20];
     for (int i = 0; i < 20; i++)
     {
