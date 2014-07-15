@@ -68,7 +68,7 @@
 {
 	UICollectionViewCell *cell = (UICollectionViewCell *)gestureRecognizer.view;
 	NSIndexPath * indexPath = [self.collectionView indexPathForCell:cell];
-	UICollectionViewLayoutAttributes *attributes = [self.cardLayout layoutAttributesForItemAtIndexPath:indexPath];
+	UICollectionViewLayoutAttributes *attributes = [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
 	CGRect originFrame = attributes.frame;
 
 	if (gestureRecognizer.state != UIGestureRecognizerStateCancelled)

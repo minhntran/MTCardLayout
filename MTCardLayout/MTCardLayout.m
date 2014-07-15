@@ -1,8 +1,6 @@
 #import "MTCardLayout.h"
-#import "MTCardBackgroundView.h"
 #import "MTCardShadowView.h"
 
-NSString * const MTCollectionElementKindBackgroundView = @"MTCollectionElementKindBackgroundView";
 NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindShadowView";
 
 @interface MTCardLayout ()
@@ -34,7 +32,6 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
 
 - (void)registerReusableViews
 {
-    [self registerClass:[MTCardBackgroundView class] forDecorationViewOfKind:MTCollectionElementKindBackgroundView];
     [self registerClass:[MTCardShadowView class] forDecorationViewOfKind:MTCollectionElementKindShadowView];
 }
 
@@ -64,7 +61,7 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     m.normal.size       = CGSizeMake(screenSize.width, screenSize.height - 64);
     m.normal.overlap    = 0.0;
     
-	m.collapsed.size    = m.normal.size; // CGSizeMake(screenSize.width, 144.0);
+	m.collapsed.size    = m.normal.size; // CGSizeMake(screenSize.width, 150.0);
     m.collapsed.overlap = m.collapsed.size.height - 74.0;
     
     m.bottomStackedHeight = 6.0;
@@ -154,12 +151,7 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
 {
 	UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:kind withIndexPath:indexPath];
 
-	if (kind == MTCollectionElementKindBackgroundView)
-	{
-		attributes.zIndex = 0;
-		attributes.frame = self.collectionView.bounds;
-	}
-	else if (kind == MTCollectionElementKindShadowView)
+	if (kind == MTCollectionElementKindShadowView)
 	{
 		attributes.zIndex = INT_MAX - 1;
         attributes.frame = frameForBottomShadow(self.collectionView.bounds, _metrics);
@@ -180,11 +172,11 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    CGRect effectiveBounds = self.collectionView.bounds;
-    effectiveBounds.origin.y += _metrics.flexibleTopMinHeight;
-    effectiveBounds.size.height -= _metrics.flexibleTopMinHeight;
-	rect = CGRectIntersection(rect, effectiveBounds);
-    
+//    CGRect effectiveBounds = self.collectionView.bounds;
+//    effectiveBounds.origin.y += _metrics.flexibleTopMinHeight;
+//    effectiveBounds.size.height -= _metrics.flexibleTopMinHeight;
+//	rect = CGRectIntersection(rect, effectiveBounds);
+//    
     NSRange range = rangeForVisibleCells(rect, [self.collectionView numberOfItemsInSection:0] , _metrics);
     
     // Uncomment to see the current range
@@ -205,9 +197,6 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     {
         [cells addObject:[self layoutAttributesForItemAtIndexPath:selectedIndexPath selectedIndexPath:selectedIndexPath numberOfItems:numberOfItems]];
     }
-	
-	// Decoration views
-	[cells addObject:[self layoutAttributesForDecorationViewOfKind:MTCollectionElementKindBackgroundView atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
 	
 	if (self.presenting)
 	{

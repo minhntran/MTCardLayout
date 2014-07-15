@@ -1,3 +1,4 @@
 platform :ios, '7.0'
 
-pod "DraggableCollectionView", :git => 'https://github.com/minhntran/DraggableCollectionView.git'
+#pod "DraggableCollectionView", :git => 'https://github.com/minhntran/DraggableCollectionView.git'
+pod "DraggableCollectionView", :path => '/Volumes/Minh/OpenSources/DraggableCollectionView/DraggableCollectionView.podspec'

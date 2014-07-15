@@ -44,6 +44,7 @@
                             <outlet property="delegate" destination="9mV-M4-oVE" id="erD-AN-PeM"/>
                         </connections>
                     </collectionView>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HSI-KV-9Uz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "UICollectionView+CardLayout.h"
 
 typedef struct
 {
