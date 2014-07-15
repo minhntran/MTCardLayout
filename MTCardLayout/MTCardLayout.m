@@ -1,39 +1,11 @@
 #import "MTCardLayout.h"
-#import "MTCardShadowView.h"
-
-NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindShadowView";
+#import "UICollectionView+CardLayout.h"
 
 @interface MTCardLayout ()
-{
-}
+
 @end
 
 @implementation MTCardLayout
-
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self registerReusableViews];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        [self registerReusableViews];
-    }
-    return self;
-}
-
-- (void)registerReusableViews
-{
-    [self registerClass:[MTCardShadowView class] forDecorationViewOfKind:MTCollectionElementKindShadowView];
-}
 
 #pragma mark - Initialization
 
@@ -93,14 +65,6 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     [self invalidateLayout];
 }
 
-- (void)setPresenting:(BOOL)presenting
-{
-	_presenting = presenting;
-    self.collectionView.scrollEnabled = !presenting;
-
-	[self invalidateLayout];
-}
-
 #pragma mark - Layout
 
 - (void)prepareLayout
@@ -115,7 +79,7 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
 	attributes.zIndex = indexPath.item + 1;
 	
-	if (self.presenting)
+	if (self.collectionView.presenting)
 	{
 		if (selectedIndexPath && [selectedIndexPath isEqual:indexPath])
 		{
@@ -147,29 +111,6 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
 	return [self layoutAttributesForItemAtIndexPath:indexPath selectedIndexPath:[selectedIndexPaths firstObject] numberOfItems:numberOfItems];
 }
 
-- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-	UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:kind withIndexPath:indexPath];
-
-	if (kind == MTCollectionElementKindShadowView)
-	{
-		attributes.zIndex = INT_MAX - 1;
-        attributes.frame = frameForBottomShadow(self.collectionView.bounds, _metrics);
-		attributes.hidden = !self.presenting;
-		if (attributes.hidden)
-		{
-            attributes.frame = self.collectionView.bounds;
-			attributes.alpha = 0.0;
-		}
-		else
-		{
-			attributes.alpha = 1.0;
-		}
-	}
-
-	return attributes;
-}
-
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
 //    CGRect effectiveBounds = self.collectionView.bounds;
@@ -193,16 +134,11 @@ NSString * const MTCollectionElementKindShadowView = @"MTCollectionElementKindSh
     }
     
     // selected item is out of range
-    if (self.presenting && selectedIndexPath && (selectedIndexPath.item < range.location || selectedIndexPath.item >= range.location + range.length))
+    if (self.collectionView.presenting && selectedIndexPath && (selectedIndexPath.item < range.location || selectedIndexPath.item >= range.location + range.length))
     {
         [cells addObject:[self layoutAttributesForItemAtIndexPath:selectedIndexPath selectedIndexPath:selectedIndexPath numberOfItems:numberOfItems]];
     }
 	
-	if (self.presenting)
-	{
-		[cells addObject:[self layoutAttributesForDecorationViewOfKind:MTCollectionElementKindShadowView atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
-	}
-    
     return cells;
 }
 
@@ -356,18 +292,6 @@ CGRect frameForUnselectedCard(NSIndexPath *indexPath, NSIndexPath *indexPathSele
 //	f.size.width = MIN(b.size.width, f.size.width);
 //	f.origin.y = MIN(b.origin.y + b.size.height - 10, f.origin.y);
 	
-    return f;
-}
-
-CGRect frameForBottomShadow(CGRect b, MTCardLayoutMetrics m)
-{
-	CGRect f;
-    
-    f.size.width  = b.size.width;
-	f.size.height = b.size.height - m.flexibleTopMinHeight - m.normal.size.height;
-    f.origin.x  = 0;
-    f.origin.y  = b.origin.y + m.flexibleTopMinHeight + m.normal.size.height;
-    
     return f;
 }
 

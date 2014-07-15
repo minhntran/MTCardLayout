@@ -1,11 +1,12 @@
 #import "MTDraggableCardLayout.h"
+#import "UICollectionView+CardLayout.h"
 #import "LSCollectionViewLayoutHelper.h"
 #import "UICollectionView+Draggable.h"
 
-@interface MTDraggableCardLayout ()
-{
-    LSCollectionViewLayoutHelper *_layoutHelper;
-}
+@interface MTDraggableCardLayout () <UICollectionViewLayout_Warpable>
+
+@property (strong, nonatomic) LSCollectionViewLayoutHelper *layoutHelper;
+
 @end
 
 @implementation MTDraggableCardLayout
@@ -22,15 +23,14 @@
 {
     [super prepareLayout];
 	
-    if (self.collectionView.draggable != !self.presenting) {
-	    self.collectionView.draggable = !self.presenting;
+    if (self.collectionView.draggable != !self.collectionView.presenting) {
+	    self.collectionView.draggable = !self.collectionView.presenting;
 	}
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSArray * array = [super layoutAttributesForElementsInRect:rect];
-    return [self.layoutHelper modifiedLayoutAttributesForElements:array];
+    return [self.layoutHelper modifiedLayoutAttributesForElements:[super layoutAttributesForElementsInRect:rect]];
 }
 
 - (UICollectionViewScrollDirection)scrollDirection

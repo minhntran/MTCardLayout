@@ -2,6 +2,7 @@
 #import "PassCell.h"
 #import "MTCardLayout.h"
 #import "MTDraggableCardLayout.h"
+#import "UICollectionView+CardLayout.h"
 
 @interface ViewController ()
 
@@ -116,21 +117,17 @@
 
 - (void)searchControllerWillBeginSearch:(SearchViewController *)controller
 {
-    if (!self.cardLayout.presenting)
+    if (!self.collectionView.presenting)
     {
-        [self.collectionView performBatchUpdates:^{
-            self.cardLayout.presenting = YES;
-        } completion:nil];
+        [self.collectionView setPresenting:YES animated:YES completion:nil];
     }
 }
 
 - (void)searchControllerWillEndSearch:(SearchViewController *)controller
 {
-    if (!self.cardLayout.presenting)
+    if (self.collectionView.presenting)
     {
-        [self.collectionView performBatchUpdates:^{
-            self.cardLayout.presenting = NO;
-        } completion:nil];
+        [self.collectionView setPresenting:NO animated:YES completion:nil];
     }
 }
 

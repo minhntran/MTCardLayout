@@ -45,6 +45,4 @@ typedef struct
 @property (nonatomic, assign) MTCardLayoutMetrics metrics;
 @property (nonatomic, assign) MTCardLayoutEffects effects;
 
-@property (nonatomic) BOOL presenting;
-
 @end
