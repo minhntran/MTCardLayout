@@ -44,7 +44,7 @@
     self.searchViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchViewController"];
     self.searchViewController.delegate = self;
 	self.collectionView.backgroundView = self.searchViewController.view;
-	
+
 	UIImageView *deleteView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
 	self.collectionView.deleteView = deleteView;
 }
@@ -97,12 +97,9 @@
     [self.items insertObject:item atIndex:toIndexPath.item];
 }
 
-//- (void)collectionView:(UICollectionView *)collectionView didMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath
-//{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.collectionView reloadData];
-//    });
-//}
+- (void)collectionView:(UICollectionView *)collectionView didMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
 
 - (CGPoint)collectionView:(UICollectionView *)collectionView deleteViewCenterForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,12 +111,9 @@
     [self.items removeObjectAtIndex:indexPath.item];
 }
 
-//- (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.collectionView reloadData];
-//    });
-//}
+- (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath
+{
+}
 
 #pragma mark SearchCell
 
@@ -137,6 +131,27 @@
     {
         [self.collectionView setPresenting:NO animated:YES completion:nil];
     }
+}
+
+#pragma mark Backside
+
+- (IBAction)flip:(id)sender
+{
+	PassCell *cell = (PassCell *)[self.collectionView cellForItemAtIndexPath:[[self.collectionView indexPathsForSelectedItems] firstObject]];
+	if (sender == cell.infoButton)
+	{
+		[cell flipTransitionWithOptions:UIViewAnimationOptionTransitionFlipFromLeft halfway:^(BOOL finished) {
+			cell.infoButton.hidden = YES;
+			cell.doneButton.hidden = NO;
+		} completion:nil];
+	}
+	else
+	{
+		[cell flipTransitionWithOptions:UIViewAnimationOptionTransitionFlipFromRight halfway:^(BOOL finished) {
+			cell.infoButton.hidden = NO;
+			cell.doneButton.hidden = YES;
+		} completion:nil];
+	}
 }
 
 @end

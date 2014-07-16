@@ -28,13 +28,49 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ox1-YF-lqS">
+                                            <rect key="frame" x="256" y="194" width="44" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="PKM-sn-vXe"/>
+                                                <constraint firstAttribute="width" constant="44" id="vrQ-py-BdS"/>
+                                            </constraints>
+                                            <state key="normal" title="Info">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="flip:" destination="9mV-M4-oVE" eventType="touchUpInside" id="lKB-nJ-1O6"/>
+                                            </connections>
+                                        </button>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuU-cs-STs">
+                                            <rect key="frame" x="120" y="190" width="81" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="81" id="pNx-AT-R3I"/>
+                                            </constraints>
+                                            <state key="normal" title="Done">
+                                                <color key="titleColor" red="0.18170413299999999" green="0.48633219900000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="flip:" destination="9mV-M4-oVE" eventType="touchUpInside" id="gxJ-ii-eFq"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="WuU-cs-STs" secondAttribute="centerX" constant="-0.5" id="5vs-Mh-PZl"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ox1-YF-lqS" secondAttribute="bottom" constant="20" id="OaM-il-tFY"/>
+                                    <constraint firstAttribute="bottom" secondItem="WuU-cs-STs" secondAttribute="bottom" constant="16" id="ckS-XL-Keg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ox1-YF-lqS" secondAttribute="trailing" constant="20" id="vbl-JB-btH"/>
+                                </constraints>
                                 <size key="customSize" width="320" height="236"/>
                                 <connections>
+                                    <outlet property="doneButton" destination="WuU-cs-STs" id="FdH-fR-bri"/>
+                                    <outlet property="infoButton" destination="Ox1-YF-lqS" id="gvf-Rt-cDr"/>
                                     <outlet property="titleLabel" destination="Zur-gi-EfG" id="6LP-X0-BnC"/>
                                 </connections>
                             </collectionViewCell>

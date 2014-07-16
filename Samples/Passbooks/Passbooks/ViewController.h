@@ -2,4 +2,6 @@
 
 @interface ViewController : UICollectionViewController
 
+- (IBAction)flip:(id)sender;
+
 @end

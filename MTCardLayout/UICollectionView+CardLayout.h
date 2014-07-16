@@ -11,3 +11,9 @@
 - (void)enableCardLayoutGestures;
 
 @end
+
+@interface UICollectionViewCell(CardLayout)
+
+- (void)flipTransitionWithOptions:(UIViewAnimationOptions)options halfway:(void (^)(BOOL finished))halfway completion:(void (^)(BOOL finished))completion;
+
+@end
