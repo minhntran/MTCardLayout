@@ -1,14 +1,14 @@
 #import <UIKit/UIKit.h>
 
-@interface UICollectionView(CardLayout)
+@interface UICollectionView (CardLayout)
+
+@property (nonatomic, strong) UIImageView * dragUpToDeleteConfirmView;
+@property (nonatomic) BOOL presenting;
 
 @property (nonatomic, readonly) UITapGestureRecognizer *cardLayoutTapGestureRecognizer;
 @property (nonatomic, readonly) UIPanGestureRecognizer *cardLayoutPanGestureRecognizer;
 
-@property (nonatomic) BOOL presenting;
-
 - (void)setPresenting:(BOOL)presenting animated:(BOOL)animated completion:(void (^)(BOOL))completion;
-- (void)enableCardLayoutGestures;
 
 @end
 

@@ -33,8 +33,6 @@
 {
 	[super viewDidLoad];
 
-    [self.collectionView enableCardLayoutGestures];
-
     self.items = [NSMutableArray arrayWithCapacity:20];
     for (int i = 0; i < 20; i++)
     {
@@ -45,8 +43,12 @@
     self.searchViewController.delegate = self;
 	self.collectionView.backgroundView = self.searchViewController.view;
 
-	UIImageView *deleteView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
-	self.collectionView.deleteView = deleteView;
+	UIImageView *dropOnToDeleteView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
+	dropOnToDeleteView.center = CGPointMake(50, 300);
+	self.collectionView.dropOnToDeleteView = dropOnToDeleteView;
+	
+	UIImageView *dragUpToDeleteConfirmView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
+	self.collectionView.dragUpToDeleteConfirmView = dragUpToDeleteConfirmView;
 }
 
 #pragma mark - UICollectionViewDatasource
@@ -101,9 +103,9 @@
 {
 }
 
-- (CGPoint)collectionView:(UICollectionView *)collectionView deleteViewCenterForItemAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)collectionView:(UICollectionView *)collectionView canDeleteItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGPointMake(50, 300);
+    return YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView deleteItemAtIndexPath:(NSIndexPath *)indexPath

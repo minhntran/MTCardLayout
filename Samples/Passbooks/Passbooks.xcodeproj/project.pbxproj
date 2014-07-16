@@ -28,6 +28,7 @@
 		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
 		BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687719703735004A0ADF /* MTCardLayout.m */; };
 		BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */; };
+		FA0FFAD51976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		BA3C687719703735004A0ADF /* MTCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayout.m; sourceTree = "<group>"; };
 		BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
 		BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayout.m; sourceTree = "<group>"; };
+		FA0FFAD31976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCollectionViewCardLayoutHelper.h; sourceTree = "<group>"; };
+		FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCollectionViewCardLayoutHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +194,8 @@
 				BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */,
 				BA19B26019750F240088D013 /* UICollectionView+CardLayout.h */,
 				BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */,
+				FA0FFAD31976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.h */,
+				FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */,
 			);
 			name = MTCardLayout;
 			path = ../../MTCardLayout;
@@ -336,6 +341,7 @@
 				BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */,
 				BA19B26219750F240088D013 /* UICollectionView+CardLayout.m in Sources */,
 				364AA32B18C5606600EC2140 /* PassCell.m in Sources */,
+				FA0FFAD51976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
