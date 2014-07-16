@@ -203,7 +203,7 @@ static int kObservingCollectionViewOffset;
 
 - (void)flipTransitionWithOptions:(UIViewAnimationOptions)options halfway:(void (^)(BOOL finished))halfway completion:(void (^)(BOOL finished))completion
 {
-	CGFloat degree = (options & UIViewAnimationOptionTransitionFlipFromLeft) ? -M_PI_2 : M_PI_2;
+	CGFloat degree = (options & UIViewAnimationOptionTransitionFlipFromRight) ? -M_PI_2 : M_PI_2;
 	
 	CGFloat duration = 0.4;
 	CGFloat distanceZ = 2000;

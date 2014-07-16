@@ -111,11 +111,11 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-//    CGRect effectiveBounds = self.collectionView.bounds;
-//    effectiveBounds.origin.y += _metrics.flexibleTopMinHeight;
-//    effectiveBounds.size.height -= _metrics.flexibleTopMinHeight;
-//	rect = CGRectIntersection(rect, effectiveBounds);
-//    
+    CGRect effectiveBounds = self.collectionView.bounds;
+    effectiveBounds.origin.y += _metrics.insets.top;
+    effectiveBounds.size.height -= _metrics.insets.top + _metrics.insets.bottom;
+	rect = CGRectIntersection(rect, effectiveBounds);
+    
     NSRange range = rangeForVisibleCells(rect, [self.collectionView numberOfItemsInSection:0] , _metrics);
     
     NSMutableArray *cells = [NSMutableArray arrayWithCapacity:range.length + 2];
@@ -234,11 +234,11 @@ CGRect frameForCardAtIndex(NSIndexPath *indexPath, BOOL isLastCell, CGRect b, MT
         }
     }
     
-//    // Edge case, if it's the last cell, display in full height, to avoid any issues.
-//    if (!isLastCell)
-//    {
-//        f.size.height = m.normalStackedHeight * 2;
-//    }
+    // Edge case, if it's the last cell, display in full height, to avoid any issues.
+    if (!isLastCell)
+    {
+        f.size.height = m.normalStackedHeight * 2;
+    }
     
     return f;
 }
