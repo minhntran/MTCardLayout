@@ -113,7 +113,7 @@ static int kObservingCollectionViewOffset;
         [selectedIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * indexPath, NSUInteger idx, BOOL *stop) {
             [self deselect:indexPath];
         }];
-        [self setPresenting:NO];
+        [self.collectionView setPresenting:NO];
     } completion:nil];
 }
 
