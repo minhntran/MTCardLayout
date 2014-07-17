@@ -11,6 +11,11 @@
 
 @implementation MTDraggableCardLayout
 
+- (void)dealloc
+{
+	[self.collectionView draggableCleanup];
+}
+
 - (LSCollectionViewLayoutHelper *)layoutHelper
 {
     if(_layoutHelper == nil) {

@@ -31,6 +31,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+	[self.collectionView cardLayoutCleanup];
+}
+
 #pragma mark - Initialization
 
 - (void)useDefaultMetricsAndInvalidate:(BOOL)invalidate
@@ -39,8 +44,8 @@
     MTCardLayoutEffects e;
  
     m.insets = UIEdgeInsetsMake(20, 0, 44, 0);
-    m.normalStackedHeight = 74;
-	m.flexibleTopMaxHeight	= 64.0;
+    m.minimumStackedHeight = 74;
+	m.flexibleTopHeight	= 0.0;
     m.bottomStackedHeight = 6.0;
     m.maxBottomCards = 5;
     
@@ -72,6 +77,17 @@
 
 #pragma mark - Layout
 
+- (void)prepareLayout
+{
+	_metrics.stackedHeight = _metrics.minimumStackedHeight;
+	NSInteger numberOfCards = [self.collectionView numberOfItemsInSection:0];
+	if (numberOfCards > 0)
+	{
+		CGFloat height = (self.collectionView.frame.size.height - self.collectionView.contentInset.top - _metrics.insets.top - _metrics.flexibleTopHeight) / numberOfCards;
+		if (height > _metrics.stackedHeight) _metrics.stackedHeight = height;
+	}
+}
+
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath selectedIndexPath:(NSIndexPath *)selectedIndexPath numberOfItems:(NSInteger)numberOfItems
 {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -82,7 +98,7 @@
 		if (selectedIndexPath && [selectedIndexPath isEqual:indexPath])
 		{
 			// Layout selected cell (normal size)
-			attributes.frame = frameForSelectedCard(self.collectionView.bounds, _metrics);
+			attributes.frame = frameForSelectedCard(self.collectionView.bounds, self.collectionView.contentInset, _metrics);
 		}
 		else
 		{
@@ -94,7 +110,7 @@
 	{
 		// Layout collapsed cells (collapsed size)
 		BOOL isLast = (indexPath.item == (numberOfItems - 1));
-		attributes.frame = frameForCardAtIndex(indexPath, isLast, self.collectionView.bounds, _metrics, _effects);
+		attributes.frame = frameForCardAtIndex(indexPath, isLast, self.collectionView.bounds, self.collectionView.contentInset, _metrics, _effects);
 	}
 	
 	attributes.hidden = attributes.frame.size.height == 0;
@@ -112,6 +128,7 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     CGRect effectiveBounds = self.collectionView.bounds;
+    effectiveBounds.origin.y += self.collectionView.contentInset.top;
     effectiveBounds.origin.y += _metrics.insets.top;
     effectiveBounds.size.height -= _metrics.insets.top + _metrics.insets.bottom;
 	rect = CGRectIntersection(rect, effectiveBounds);
@@ -149,7 +166,7 @@
 
 - (CGSize)collectionViewContentSize
 {
-    return collectionViewSize(self.collectionView.bounds, [self.collectionView numberOfItemsInSection:0], _metrics);
+    return collectionViewSize(self.collectionView.bounds, self.collectionView.contentInset, [self.collectionView numberOfItemsInSection:0], _metrics);
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
@@ -162,19 +179,22 @@
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
 {
     CGPoint targetContentOffset = proposedContentOffset;
-    
+	
     if (self.collectionView.scrollEnabled)
     {
-        CGFloat flexibleHeight = self.metrics.flexibleTopMaxHeight - self.metrics.insets.top;
+		targetContentOffset.y += self.collectionView.contentInset.top;
+        CGFloat flexibleHeight = _metrics.flexibleTopHeight;
         if (targetContentOffset.y < flexibleHeight) {
             targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
         } else {
-            if (self.metrics.normalStackedHeight > 0) {
-                targetContentOffset.y = roundf((targetContentOffset.y - flexibleHeight) / self.metrics.normalStackedHeight) * self.metrics.normalStackedHeight + flexibleHeight;
+            if (_metrics.stackedHeight > 0) {
+                targetContentOffset.y = roundf((targetContentOffset.y - flexibleHeight) / _metrics.stackedHeight) * _metrics.stackedHeight + flexibleHeight;
             }
         }
+		targetContentOffset.y -= self.collectionView.contentInset.top;
     }
     
+
     return targetContentOffset;
 }
 
@@ -182,9 +202,9 @@
 
 NSRange rangeForVisibleCells(CGRect rect, NSInteger count, MTCardLayoutMetrics m)
 {
-	rect.origin.y -= m.flexibleTopMaxHeight;
-    NSInteger min = (m.normalStackedHeight == 0) ? 0 : floor(rect.origin.y / m.normalStackedHeight);
-    NSInteger max = (m.normalStackedHeight == 0) ? count : ceil((rect.origin.y + rect.size.height) / m.normalStackedHeight);
+	rect.origin.y -= m.flexibleTopHeight + m.insets.top;
+    NSInteger min = (m.stackedHeight == 0) ? 0 : floor(rect.origin.y / m.stackedHeight);
+    NSInteger max = (m.stackedHeight == 0) ? count : ceil((rect.origin.y + rect.size.height) / m.stackedHeight);
     
     max = (max > count) ? count : max;
     
@@ -196,62 +216,62 @@ NSRange rangeForVisibleCells(CGRect rect, NSInteger count, MTCardLayoutMetrics m
     return r;
 }
 
-CGSize collectionViewSize(CGRect bounds, NSInteger count, MTCardLayoutMetrics m)
+CGSize collectionViewSize(CGRect bounds, UIEdgeInsets contentInset, NSInteger count, MTCardLayoutMetrics m)
 {
-	CGFloat height = count * m.normalStackedHeight + m.flexibleTopMaxHeight - m.insets.top + fmodf(bounds.size.height, m.normalStackedHeight);
+	CGFloat height = count * m.stackedHeight + m.flexibleTopHeight + m.insets.top + fmodf(bounds.size.height - contentInset.top - m.insets.top, m.stackedHeight);
     return CGSizeMake(bounds.size.width, height);
 }
 
 #pragma mark Cell positioning
 
 /// Normal collapsed cell, with bouncy animations on top
-CGRect frameForCardAtIndex(NSIndexPath *indexPath, BOOL isLastCell, CGRect b, MTCardLayoutMetrics m, MTCardLayoutEffects e)
+CGRect frameForCardAtIndex(NSIndexPath *indexPath, BOOL isLastCell, CGRect b, UIEdgeInsets contentInset, MTCardLayoutMetrics m, MTCardLayoutEffects e)
 {
-    CGRect f = UIEdgeInsetsInsetRect(b, m.insets);
+    CGRect f = UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(b, contentInset), m.insets);
 
-    f.origin.y = indexPath.item * m.normalStackedHeight + m.flexibleTopMaxHeight;
+    f.origin.y = indexPath.item * m.stackedHeight + m.flexibleTopHeight + m.insets.top;
     
-    if (b.origin.y < 0 && e.inheritance > 0.0 && e.bouncesTop)
+    if (b.origin.y + contentInset.top < 0 && e.inheritance > 0.0 && e.bouncesTop)
     {
         // Bouncy effect on top (works only on constant invalidation)
         if (indexPath.section == 0 && indexPath.item == 0)
         {
             // Keep stuck at top
-            f.origin.y      = b.origin.y * e.inheritance/2.0 + m.flexibleTopMaxHeight;
+            f.origin.y      = (b.origin.y + contentInset.top) * e.inheritance/2.0 + m.flexibleTopHeight + m.insets.top;
         }
         else
         {
             // Displace in stepping amounts factored by resitatnce
-            f.origin.y     -= b.origin.y * indexPath.item * e.inheritance;
+            f.origin.y     -= (b.origin.y + contentInset.top) * indexPath.item * e.inheritance;
         }
     }
-    else if (b.origin.y > 0)
+    else if (b.origin.y + contentInset.top > 0)
     {
         // Stick to top
-        if (f.origin.y < b.origin.y + m.insets.top && e.sticksTop)
+        if (f.origin.y < b.origin.y + contentInset.top + m.insets.top && e.sticksTop)
         {
-            f.origin.y = b.origin.y + m.insets.top;
+            f.origin.y = b.origin.y + contentInset.top + m.insets.top;
         }
     }
     
-    // Edge case, if it's the last cell, display in full height, to avoid any issues.
-    if (!isLastCell)
-    {
-        f.size.height = m.normalStackedHeight * 2;
-    }
+//    // Edge case, if it's the last cell, display in full height, to avoid any issues.
+//    if (!isLastCell)
+//    {
+//        f.size.height = m.normalStackedHeight * 2;
+//    }
     
     return f;
 }
 
-CGRect frameForSelectedCard(CGRect b, MTCardLayoutMetrics m)
+CGRect frameForSelectedCard(CGRect b, UIEdgeInsets contentInset, MTCardLayoutMetrics m)
 {
-    return UIEdgeInsetsInsetRect(b, m.insets);
+    return UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(b, contentInset), m.insets);
 }
 
 /// Bottom-stack card
 CGRect frameForUnselectedCard(NSIndexPath *indexPath, NSIndexPath *indexPathSelected, CGRect b, MTCardLayoutMetrics m)
 {
-    NSInteger firstVisibleItem = ceil((b.origin.y - m.flexibleTopMaxHeight) / m.normalStackedHeight);
+    NSInteger firstVisibleItem = ceil((b.origin.y - m.flexibleTopHeight + m.insets.top) / m.stackedHeight);
     if (firstVisibleItem < 0) firstVisibleItem = 0;
 
     NSInteger itemOrder = indexPath.item - firstVisibleItem;

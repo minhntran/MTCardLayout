@@ -7,6 +7,8 @@
 
 static int kObservingCollectionViewOffset;
 
+static NSString * const kContentOffsetKeyPath = @"contentOffset";
+
 @implementation MTCollectionViewCardLayoutHelper
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView
@@ -16,12 +18,17 @@ static int kObservingCollectionViewOffset;
     {
         self.collectionView = collectionView;
         [collectionView addObserver:self
-						 forKeyPath:@"contentOffset"
+						 forKeyPath:kContentOffsetKeyPath
 							options:0
 							context:&kObservingCollectionViewOffset];
         
     }
     return self;
+}
+
+- (void)unbindFromCollectionView:(UICollectionView *)collectionView
+{
+	[collectionView removeObserver:self forKeyPath:kContentOffsetKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -86,8 +93,16 @@ static int kObservingCollectionViewOffset;
 - (void)setPresenting:(BOOL)presenting
 {
 	_presenting = presenting;
-	self.tapGestureRecognizer.enabled = presenting;
-	self.panGestureRecognizer.enabled = presenting;
+	if (presenting)
+	{
+		if (self.tapGestureRecognizer.view == nil) [self.collectionView addGestureRecognizer:self.tapGestureRecognizer];
+		if (self.panGestureRecognizer.view == nil) [self.collectionView addGestureRecognizer:self.panGestureRecognizer];
+	}
+	else
+	{
+		[self.collectionView removeGestureRecognizer:self.tapGestureRecognizer];
+		[self.collectionView removeGestureRecognizer:self.panGestureRecognizer];
+	}
 }
 
 #pragma mark - Tap gesture
@@ -97,8 +112,6 @@ static int kObservingCollectionViewOffset;
 	if (_tapGestureRecognizer == nil)
 	{
 		_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-        _tapGestureRecognizer.enabled = _presenting;
-		[self.collectionView addGestureRecognizer:_tapGestureRecognizer];
 	}
 	
 	return _tapGestureRecognizer;
@@ -125,8 +138,6 @@ static int kObservingCollectionViewOffset;
 	{
 		_panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
 		_panGestureRecognizer.maximumNumberOfTouches = 1;
-        _panGestureRecognizer.enabled = _presenting;
-		[self.collectionView addGestureRecognizer:_panGestureRecognizer];
 	}
     
     return _panGestureRecognizer;

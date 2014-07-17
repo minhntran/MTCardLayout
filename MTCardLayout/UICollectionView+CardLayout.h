@@ -9,6 +9,7 @@
 @property (nonatomic, readonly) UIPanGestureRecognizer *cardLayoutPanGestureRecognizer;
 
 - (void)setPresenting:(BOOL)presenting animated:(BOOL)animated completion:(void (^)(BOOL))completion;
+- (void)cardLayoutCleanup;
 
 @end
 

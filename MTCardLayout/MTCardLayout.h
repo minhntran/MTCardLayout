@@ -5,14 +5,16 @@ typedef struct
     // Insets of the fullscreen card
     UIEdgeInsets insets;
     // Top flexible inset
-	CGFloat flexibleTopMaxHeight;
+	CGFloat flexibleTopHeight;
     // The visible size of each card in the normal stack
-    CGFloat normalStackedHeight;
+    CGFloat minimumStackedHeight;
     // The visible size of each card in the bottom stack
     CGFloat bottomStackedHeight;
 	// Max number of card to show at the bottom stack
     NSUInteger maxBottomCards;
     
+	// This value is calculated internally
+	CGFloat stackedHeight;
 } MTCardLayoutMetrics;
 
 typedef struct

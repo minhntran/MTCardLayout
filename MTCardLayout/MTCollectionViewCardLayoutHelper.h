@@ -9,5 +9,6 @@
 @property (nonatomic) UITapGestureRecognizer * tapGestureRecognizer;
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView;
+- (void)unbindFromCollectionView:(UICollectionView *)collectionView;
 
 @end
