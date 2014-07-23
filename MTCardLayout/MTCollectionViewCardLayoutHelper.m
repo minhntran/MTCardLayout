@@ -2,8 +2,8 @@
 #import "UICollectionView+CardLayout.h"
 #import "UICollectionViewDataSource_Draggable.h"
 
-#define DRAG_CURVE_LIMIT 60.0
-#define DRAG_ACTION_LIMIT 200.0
+#define DRAG_CURVE_LIMIT 80.0
+#define DRAG_ACTION_LIMIT 150.0
 
 static int kObservingCollectionViewOffset;
 

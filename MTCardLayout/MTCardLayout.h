@@ -3,18 +3,22 @@
 typedef struct
 {
     // Insets of the fullscreen card
-    UIEdgeInsets insets;
+    UIEdgeInsets presentingInsets;
+
+    // Insets of the list
+    UIEdgeInsets listingInsets;
+
     // Top flexible inset
-	CGFloat flexibleTopHeight;
+	CGFloat flexibleTop;
     // The visible size of each card in the normal stack
-    CGFloat minimumStackedHeight;
+    CGFloat minimumVisibleHeight;
     // The visible size of each card in the bottom stack
-    CGFloat bottomStackedHeight;
+    CGFloat stackedVisibleHeight;
 	// Max number of card to show at the bottom stack
-    NSUInteger maxBottomCards;
+    NSUInteger maxStackedCards;
     
 	// This value is calculated internally
-	CGFloat stackedHeight;
+	CGFloat visibleHeight;
 } MTCardLayoutMetrics;
 
 typedef struct
@@ -27,6 +31,12 @@ typedef struct
     
     /// Allows the cards get "stuck" on the top, instead of just scrolling outside
     BOOL sticksTop;
+    
+    /// Allows the cards to spread out when there is less number of cards
+    BOOL spreading;
+
+    /// Allows all cards to collapse to the bottom
+    BOOL collapsesAll;
     
 } MTCardLayoutEffects;
 
