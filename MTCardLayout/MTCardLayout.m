@@ -97,6 +97,7 @@
 {
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
 	attributes.zIndex = indexPath.item + 1;
+//    attributes.transform3D = CATransform3DMakeTranslation(0, 0, attributes.zIndex);
 	
 	if (self.collectionView.presenting)
 	{
@@ -158,16 +159,6 @@
 	
     return cells;
 }
-
-//- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-//{
-//    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
-//    
-//    CGRect bounds = self.collectionView.bounds;
-//    attributes.frame = CGRectMake(0, bounds.origin.y, self.metrics.normal.size.width, self.metrics.normal.size.height);
-//    
-//    return attributes;
-//}
 
 - (CGSize)collectionViewContentSize
 {
@@ -233,6 +224,7 @@ CGSize collectionViewSize(CGRect bounds, UIEdgeInsets contentInset, NSInteger co
 CGRect frameForCardAtIndex(NSIndexPath *indexPath, BOOL isLastCell, CGRect b, UIEdgeInsets contentInset, MTCardLayoutMetrics m, MTCardLayoutEffects e)
 {
     CGRect f = UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(b, contentInset), m.listingInsets);
+    f.size.height -= m.flexibleTop;
 
     f.origin.y = indexPath.item * m.visibleHeight + m.flexibleTop + m.listingInsets.top;
     
@@ -259,10 +251,10 @@ CGRect frameForCardAtIndex(NSIndexPath *indexPath, BOOL isLastCell, CGRect b, UI
         }
     }
     
-//    // Edge case, if it's the last cell, display in full height, to avoid any issues.
+    // Edge case, if it's the last cell, display in full height, to avoid any issues.
 //    if (!isLastCell)
 //    {
-//        f.size.height = m.normalStackedHeight * 2;
+//        f.size.height = m.visibleHeight * 2;
 //    }
     
     return f;
