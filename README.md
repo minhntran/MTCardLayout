@@ -8,7 +8,9 @@ Mimicking the behaviour of the Passbooks apps in iOS using a custom `UICollectio
 ##Installation
 Copy the `MTCardLayout` folder that has the `.h` and `.m` into you project. Specify MTCardLayout as layout for your UICollectionView.
 
-See the attached sample project.
+If you use `CocoaPods`, add pod 'MTCardLayout' to your Podfile.
+
+See the attached sample project for usage.
 
 ##Intended use
 This collection view is suitable for applications that want to mimick the behaviour of the included Apple Passbook and Reminder on iOS devices (iOS 6 onwards).
