@@ -29,7 +29,7 @@ static const char * MTCollectionViewCardLayoutHelperKey = "UICollectionViewCardL
 - (void)correctCellZIndexes
 {
     NSArray * visibleIndexPaths = [[self indexPathsForVisibleItems] sortedArrayUsingSelector:@selector(compare:)];
-    for (int i = visibleIndexPaths.count - 1; i >=0; i--)
+    for (NSInteger i = visibleIndexPaths.count - 1; i >=0; i--)
     {
         NSIndexPath *visibleIndexPath = visibleIndexPaths[i];
         UICollectionViewCell *cell = [self cellForItemAtIndexPath:visibleIndexPath];
