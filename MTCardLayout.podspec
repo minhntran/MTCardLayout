@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MTCardLayout"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "UICollectionView layout to mimick Passbook app."
 
   s.description  = <<-DESC
@@ -17,11 +17,9 @@ Pod::Spec.new do |s|
   s.author             = "Minh Tran"
   s.social_media_url   = "http://twitter.com/zealix"
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/minhntran/MTCardLayout.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/minhntran/MTCardLayout.git", :tag => "v1.0.2" }
   s.source_files  = "MTCardLayout", "MTCardLayout/**/*.{h,m}"
-  s.exclude_files = "MTCardLayout/Exclude"
   s.public_header_files = "MTCardLayout/**/*.h"
   s.requires_arc = true
-  s.dependency "DraggableCollectionView", '~> 0.2'
 
 end
