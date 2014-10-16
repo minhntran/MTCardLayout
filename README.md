@@ -6,7 +6,7 @@ Mimicking the behaviour of the Passbooks apps in iOS using a custom `UICollectio
 ![Crappy gif ahoy!](images/demo.gif)
 
 ##Installation
-Copy the `MTCardLayout` folder that has the `.h` and `.m` into you project. Swap your filthy old `collectionView`'s layout for this beauty, and you're good to go.
+Copy the `MTCardLayout` folder that has the `.h` and `.m` into you project. Specify MTCardLayout as layout for your UICollectionView.
 
 See the attached sample project.
 
