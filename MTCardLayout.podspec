@@ -22,6 +22,6 @@ Pod::Spec.new do |s|
   s.exclude_files = "MTCardLayout/Exclude"
   s.public_header_files = "MTCardLayout/**/*.h"
   s.requires_arc = true
-  s.dependency "DraggableCollectionView", '~> 0.2'
+  s.dependency "DraggableCollectionView"
 
 end
