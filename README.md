@@ -8,8 +8,6 @@ Mimicking the behaviour of the Passbooks apps in iOS using a custom `UICollectio
 ##Installation
 Copy the `MTCardLayout` folder that has the `.h` and `.m` into you project. Specify MTCardLayout as layout for your UICollectionView.
 
-`MTCardLayout` depends on `DraggableCollectionView` https://github.com/minhntran/DraggableCollectionView
-
 See the attached sample project.
 
 ##Intended use
@@ -20,4 +18,6 @@ This collection view layout is rather inneficient compared to other layouts, it 
 And it does not use `UIDynamics`, just math.
 
 ##Credits
-This is a rewrite of the PassbookLayout bt CanTheAlmighty (https://github.com/CanTheAlmighty/PassbookLayout). This is a clean rewrite of that class and most of the functionality.
+This is a rewrite of the PassbookLayout by CanTheAlmighty (https://github.com/CanTheAlmighty/PassbookLayout). This is a clean rewrite of that class and most of the functionality.
+
+`MTCardLayout` includes a modified version of `DraggableCollectionView` by Luke Scott (https://github.com/lukescott/DraggableCollectionView).
