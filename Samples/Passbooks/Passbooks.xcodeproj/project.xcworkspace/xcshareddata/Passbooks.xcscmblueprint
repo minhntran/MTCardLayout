@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3BD6FDF64705E442A9D5C7DFFCB39234E6D1307D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "AB26675F-B85E-4326-922B-D017EDBB978F" : 0,
+    "3BD6FDF64705E442A9D5C7DFFCB39234E6D1307D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A0852743-FE7C-4676-AA8E-8708FF6035FC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "AB26675F-B85E-4326-922B-D017EDBB978F" : "PassbookLayout",
+    "3BD6FDF64705E442A9D5C7DFFCB39234E6D1307D" : "MTCardLayout"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Passbooks",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Samples\/Passbooks\/Passbooks.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/minhntran\/MTCardLayout.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3BD6FDF64705E442A9D5C7DFFCB39234E6D1307D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CanTheAlmighty\/PassbookLayout.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AB26675F-B85E-4326-922B-D017EDBB978F"
+    }
+  ]
+}

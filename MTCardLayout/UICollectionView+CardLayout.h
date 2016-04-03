@@ -1,15 +1,13 @@
 #import <UIKit/UIKit.h>
+#import "MTCommonTypes.h"
 
 @interface UICollectionView (CardLayout)
 
-@property (nonatomic, strong) UIImageView * dragUpToDeleteConfirmView;
-@property (nonatomic) BOOL presenting;
+@property (nonatomic) MTCardLayoutViewMode viewMode;
 
-@property (nonatomic, readonly) UITapGestureRecognizer *cardLayoutTapGestureRecognizer;
-@property (nonatomic, readonly) UIPanGestureRecognizer *cardLayoutPanGestureRecognizer;
+- (void)setViewMode:(MTCardLayoutViewMode)viewMode animated:(BOOL)animated completion:(void (^)(BOOL))completion;
 
-- (void)setPresenting:(BOOL)presenting animated:(BOOL)animated completion:(void (^)(BOOL))completion;
-- (void)cardLayoutCleanup;
-- (void)correctCellZIndexes;
+- (void)selectAndNotifyDelegate:(NSIndexPath *)indexPath;
+- (void)deselectAndNotifyDelegate:(NSIndexPath *)indexPath;
 
 @end

@@ -2,8 +2,8 @@
 #import "PassCell.h"
 #import "MTCardLayout.h"
 #import "UICollectionView+CardLayout.h"
-#import "LSCollectionViewLayoutHelper.h"
-#import "UICollectionView+Draggable.h"
+#import "UICollectionView+DraggableCardLayout.h"
+#import "MTCardLayoutHelper.h"
 #import "SearchViewController.h"
 
 @interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable>
@@ -26,7 +26,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.collectionView setPresenting:YES animated:YES completion:nil];
+    [self.collectionView setViewMode:MTCardLayoutViewModePresenting animated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -42,13 +42,6 @@
     self.searchViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchViewController"];
     self.searchViewController.delegate = self;
 	self.collectionView.backgroundView = self.searchViewController.view;
-
-	UIImageView *dropOnToDeleteView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
-	dropOnToDeleteView.center = CGPointMake(50, 300);
-	self.collectionView.dropOnToDeleteView = dropOnToDeleteView;
-	
-	UIImageView *dragUpToDeleteConfirmView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
-	self.collectionView.dragUpToDeleteConfirmView = dragUpToDeleteConfirmView;
 }
 
 #pragma mark - UICollectionViewDatasource
@@ -117,21 +110,26 @@
 {
 }
 
+- (UIView *)collectionView:(UICollectionView *)collectionView deletionConfirmationViewForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
+}
+
 #pragma mark SearchCell
 
 - (void)searchControllerWillBeginSearch:(SearchViewController *)controller
 {
-    if (!self.collectionView.presenting)
+    if (self.collectionView.viewMode != MTCardLayoutViewModePresenting)
     {
-        [self.collectionView setPresenting:YES animated:YES completion:nil];
+        [self.collectionView setViewMode:MTCardLayoutViewModePresenting animated:YES completion:nil];
     }
 }
 
 - (void)searchControllerWillEndSearch:(SearchViewController *)controller
 {
-    if (self.collectionView.presenting)
+    if (self.collectionView.viewMode != MTCardLayoutViewModeDefault)
     {
-        [self.collectionView setPresenting:NO animated:YES completion:nil];
+        [self.collectionView setViewMode:MTCardLayoutViewModeDefault animated:YES completion:nil];
     }
 }
 

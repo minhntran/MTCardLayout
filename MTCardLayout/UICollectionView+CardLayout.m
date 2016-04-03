@@ -1,67 +1,46 @@
 #import <objc/runtime.h>
 #import "UICollectionView+CardLayout.h"
-#import "MTCollectionViewCardLayoutHelper.h"
+#import "MTCardLayoutHelper.h"
 
-static const char * MTCollectionViewCardLayoutHelperKey = "UICollectionViewCardLayoutHelper";
+static const char * MTCardLayoutHelperKey = "MTCardLayoutHelperKey";
 
 @implementation UICollectionView(CardLayout)
 
-- (MTCollectionViewCardLayoutHelper *)getCardLayoutHelper
+- (MTCardLayoutHelper *)cardLayoutHelper
 {
-    MTCollectionViewCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCollectionViewCardLayoutHelperKey);
+    MTCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCardLayoutHelperKey);
     if(helper == nil) {
-        helper = [[MTCollectionViewCardLayoutHelper alloc] initWithCollectionView:self];
-        objc_setAssociatedObject(self, MTCollectionViewCardLayoutHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        helper = [[MTCardLayoutHelper alloc] initWithCollectionView:self];
+        objc_setAssociatedObject(self, MTCardLayoutHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return helper;
 }
 
 - (void)cardLayoutCleanup
 {
-	MTCollectionViewCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCollectionViewCardLayoutHelperKey);
+	MTCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCardLayoutHelperKey);
 	if (helper)
 	{
 		[helper unbindFromCollectionView:self];
-		objc_setAssociatedObject(self, MTCollectionViewCardLayoutHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, MTCardLayoutHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 }
 
-- (void)correctCellZIndexes
+- (MTCardLayoutViewMode)viewMode
 {
-    NSArray * visibleIndexPaths = [[self indexPathsForVisibleItems] sortedArrayUsingSelector:@selector(compare:)];
-    for (NSInteger i = visibleIndexPaths.count - 1; i >=0; i--)
-    {
-        NSIndexPath *visibleIndexPath = visibleIndexPaths[i];
-        UICollectionViewCell *cell = [self cellForItemAtIndexPath:visibleIndexPath];
-        [self sendSubviewToBack:cell];
-    }
+    return self.cardLayoutHelper.viewMode;
 }
 
-- (UIImageView *)dragUpToDeleteConfirmView
+- (void)setViewMode:(MTCardLayoutViewMode)viewMode
 {
-    return [self getCardLayoutHelper].dragUpToDeleteConfirmView;
+    [self setViewMode:viewMode animated:NO completion:nil];
 }
 
-- (void)setDragUpToDeleteConfirmView:(UIImageView *)dragUpToDeleteConfirmView
-{
-    [[self getCardLayoutHelper] setDragUpToDeleteConfirmView:dragUpToDeleteConfirmView];
-}
-
-- (BOOL)presenting
-{
-    return [self getCardLayoutHelper].presenting;
-}
-
-- (void)setPresenting:(BOOL)presenting
-{
-    [self setPresenting:presenting animated:NO completion:nil];
-}
-
-- (void)setPresenting:(BOOL)presenting animated:(BOOL)animated completion:(void (^)(BOOL))completion
+- (void)setViewMode:(MTCardLayoutViewMode)viewMode animated:(BOOL)animated completion:(void (^)(BOOL))completion
 {
     void (^setPresenting)() = ^{
-        [self getCardLayoutHelper].presenting = presenting;
-        self.scrollEnabled = !presenting;
+        self.cardLayoutHelper.viewMode = viewMode;
+        self.scrollEnabled = viewMode == MTCardLayoutViewModeDefault;
         
         [self.collectionViewLayout invalidateLayout];
     };
@@ -72,29 +51,29 @@ static const char * MTCollectionViewCardLayoutHelperKey = "UICollectionViewCardL
             setPresenting();
         } completion:^(BOOL finished) {
             if (completion) completion(finished);
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self correctCellZIndexes];
-//            });
         }];
     }
     else
     {
         setPresenting();
         if (completion) completion(TRUE);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self correctCellZIndexes];
-//        });
     }
 }
 
-- (UITapGestureRecognizer *)cardLayoutTapGestureRecognizer
+- (void)deselectAndNotifyDelegate:(NSIndexPath *)indexPath
 {
-	return [self getCardLayoutHelper].tapGestureRecognizer;
+    [self deselectItemAtIndexPath:indexPath animated:NO];
+    if ([self.delegate respondsToSelector:@selector(collectionView:didDeselectItemAtIndexPath:)]) {
+        [self.delegate collectionView:self didDeselectItemAtIndexPath:indexPath];
+    }
 }
 
-- (UIPanGestureRecognizer *)cardLayoutPanGestureRecognizer
+- (void)selectAndNotifyDelegate:(NSIndexPath *)indexPath
 {
-	return [self getCardLayoutHelper].panGestureRecognizer;
+    [self selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    if ([self.delegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
+        [self.delegate collectionView:self didSelectItemAtIndexPath:indexPath];
+    }
 }
 
 @end

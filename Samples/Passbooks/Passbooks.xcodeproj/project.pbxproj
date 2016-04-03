@@ -22,15 +22,14 @@
 		364AA31918C55EBD00EC2140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 364AA31718C55EBD00EC2140 /* InfoPlist.strings */; };
 		364AA31B18C55EBD00EC2140 /* PassbooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA31A18C55EBD00EC2140 /* PassbooksTests.m */; };
 		364AA32B18C5606600EC2140 /* PassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 364AA32A18C5606600EC2140 /* PassCell.m */; };
+		BA0255F61CB0F259002EE790 /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255EB1CB0F259002EE790 /* MTCardLayout.m */; };
+		BA0255F71CB0F259002EE790 /* MTCardLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */; };
+		BA0255F81CB0F259002EE790 /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */; };
+		BA0255F91CB0F259002EE790 /* MTDraggableHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */; };
+		BA0255FA1CB0F259002EE790 /* UICollectionView+CardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */; };
+		BA0255FB1CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F51CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m */; };
 		BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA17D52F196CF6A80054D9EC /* SearchViewController.m */; };
-		BA19B26219750F240088D013 /* UICollectionView+CardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */; };
 		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
-		BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687719703735004A0ADF /* MTCardLayout.m */; };
-		BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */; };
-		FA0FFAD51976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */; };
-		FAEDAC1E19F0567100DCAD05 /* LSCollectionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEDAC1419F0567100DCAD05 /* LSCollectionViewHelper.m */; };
-		FAEDAC1F19F0567100DCAD05 /* LSCollectionViewLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEDAC1619F0567100DCAD05 /* LSCollectionViewLayoutHelper.m */; };
-		FAEDAC2119F0567100DCAD05 /* UICollectionView+Draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEDAC1B19F0567100DCAD05 /* UICollectionView+Draggable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,25 +64,21 @@
 		364AA31A18C55EBD00EC2140 /* PassbooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassbooksTests.m; sourceTree = "<group>"; };
 		364AA32918C5606600EC2140 /* PassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassCell.h; sourceTree = "<group>"; };
 		364AA32A18C5606600EC2140 /* PassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassCell.m; sourceTree = "<group>"; };
+		BA0255EA1CB0F259002EE790 /* MTCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardLayout.h; sourceTree = "<group>"; };
+		BA0255EB1CB0F259002EE790 /* MTCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayout.m; sourceTree = "<group>"; };
+		BA0255EC1CB0F259002EE790 /* MTCardLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardLayoutHelper.h; sourceTree = "<group>"; };
+		BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayoutHelper.m; sourceTree = "<group>"; };
+		BA0255EE1CB0F259002EE790 /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
+		BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayout.m; sourceTree = "<group>"; };
+		BA0255F01CB0F259002EE790 /* MTDraggableHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableHelper.h; sourceTree = "<group>"; };
+		BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableHelper.m; sourceTree = "<group>"; };
+		BA0255F21CB0F259002EE790 /* UICollectionView+CardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CardLayout.h"; sourceTree = "<group>"; };
+		BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CardLayout.m"; sourceTree = "<group>"; };
+		BA0255F41CB0F259002EE790 /* UICollectionView+DraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+DraggableCardLayout.h"; sourceTree = "<group>"; };
+		BA0255F51CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+DraggableCardLayout.m"; sourceTree = "<group>"; };
 		BA17D52E196CF6A80054D9EC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		BA17D52F196CF6A80054D9EC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		BA19B26019750F240088D013 /* UICollectionView+CardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CardLayout.h"; sourceTree = "<group>"; };
-		BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CardLayout.m"; sourceTree = "<group>"; };
 		BA2A4FE9196E71760074E49E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BA3C687619703735004A0ADF /* MTCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardLayout.h; sourceTree = "<group>"; };
-		BA3C687719703735004A0ADF /* MTCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayout.m; sourceTree = "<group>"; };
-		BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
-		BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayout.m; sourceTree = "<group>"; };
-		FA0FFAD31976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCollectionViewCardLayoutHelper.h; sourceTree = "<group>"; };
-		FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCollectionViewCardLayoutHelper.m; sourceTree = "<group>"; };
-		FAEDAC1319F0567100DCAD05 /* LSCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewHelper.h; sourceTree = "<group>"; };
-		FAEDAC1419F0567100DCAD05 /* LSCollectionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCollectionViewHelper.m; sourceTree = "<group>"; };
-		FAEDAC1519F0567100DCAD05 /* LSCollectionViewLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewLayoutHelper.h; sourceTree = "<group>"; };
-		FAEDAC1619F0567100DCAD05 /* LSCollectionViewLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCollectionViewLayoutHelper.m; sourceTree = "<group>"; };
-		FAEDAC1A19F0567100DCAD05 /* UICollectionView+Draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Draggable.h"; sourceTree = "<group>"; };
-		FAEDAC1B19F0567100DCAD05 /* UICollectionView+Draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Draggable.m"; sourceTree = "<group>"; };
-		FAEDAC1C19F0567100DCAD05 /* UICollectionViewDataSource_Draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewDataSource_Draggable.h; sourceTree = "<group>"; };
-		FAEDAC1D19F0567100DCAD05 /* UICollectionViewLayout_Warpable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLayout_Warpable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,41 +188,21 @@
 		BA3C686619703735004A0ADF /* MTCardLayout */ = {
 			isa = PBXGroup;
 			children = (
-				FAEDAC1119F0567100DCAD05 /* DraggableCollectionView */,
-				BA3C687619703735004A0ADF /* MTCardLayout.h */,
-				BA3C687719703735004A0ADF /* MTCardLayout.m */,
-				BA3C687A19703735004A0ADF /* MTDraggableCardLayout.h */,
-				BA3C687B19703735004A0ADF /* MTDraggableCardLayout.m */,
-				BA19B26019750F240088D013 /* UICollectionView+CardLayout.h */,
-				BA19B26119750F240088D013 /* UICollectionView+CardLayout.m */,
-				FA0FFAD31976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.h */,
-				FA0FFAD41976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m */,
+				BA0255EA1CB0F259002EE790 /* MTCardLayout.h */,
+				BA0255EB1CB0F259002EE790 /* MTCardLayout.m */,
+				BA0255EC1CB0F259002EE790 /* MTCardLayoutHelper.h */,
+				BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */,
+				BA0255EE1CB0F259002EE790 /* MTDraggableCardLayout.h */,
+				BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */,
+				BA0255F01CB0F259002EE790 /* MTDraggableHelper.h */,
+				BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */,
+				BA0255F21CB0F259002EE790 /* UICollectionView+CardLayout.h */,
+				BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */,
+				BA0255F41CB0F259002EE790 /* UICollectionView+DraggableCardLayout.h */,
+				BA0255F51CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m */,
 			);
 			name = MTCardLayout;
 			path = ../../MTCardLayout;
-			sourceTree = "<group>";
-		};
-		FAEDAC1119F0567100DCAD05 /* DraggableCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				FAEDAC1219F0567100DCAD05 /* Helpers */,
-				FAEDAC1A19F0567100DCAD05 /* UICollectionView+Draggable.h */,
-				FAEDAC1B19F0567100DCAD05 /* UICollectionView+Draggable.m */,
-				FAEDAC1C19F0567100DCAD05 /* UICollectionViewDataSource_Draggable.h */,
-				FAEDAC1D19F0567100DCAD05 /* UICollectionViewLayout_Warpable.h */,
-			);
-			path = DraggableCollectionView;
-			sourceTree = "<group>";
-		};
-		FAEDAC1219F0567100DCAD05 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				FAEDAC1319F0567100DCAD05 /* LSCollectionViewHelper.h */,
-				FAEDAC1419F0567100DCAD05 /* LSCollectionViewHelper.m */,
-				FAEDAC1519F0567100DCAD05 /* LSCollectionViewLayoutHelper.h */,
-				FAEDAC1619F0567100DCAD05 /* LSCollectionViewLayoutHelper.m */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,18 +302,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA0255F61CB0F259002EE790 /* MTCardLayout.m in Sources */,
+				BA0255FB1CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m in Sources */,
 				364AA30618C55EBD00EC2140 /* ViewController.m in Sources */,
 				364AA30018C55EBD00EC2140 /* AppDelegate.m in Sources */,
 				BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */,
+				BA0255F81CB0F259002EE790 /* MTDraggableCardLayout.m in Sources */,
 				364AA2FC18C55EBD00EC2140 /* main.m in Sources */,
-				BA3C688719703735004A0ADF /* MTDraggableCardLayout.m in Sources */,
-				BA3C688519703735004A0ADF /* MTCardLayout.m in Sources */,
-				FAEDAC1F19F0567100DCAD05 /* LSCollectionViewLayoutHelper.m in Sources */,
-				BA19B26219750F240088D013 /* UICollectionView+CardLayout.m in Sources */,
-				FAEDAC2119F0567100DCAD05 /* UICollectionView+Draggable.m in Sources */,
+				BA0255FA1CB0F259002EE790 /* UICollectionView+CardLayout.m in Sources */,
 				364AA32B18C5606600EC2140 /* PassCell.m in Sources */,
-				FA0FFAD51976F9B100B6E5B5 /* MTCollectionViewCardLayoutHelper.m in Sources */,
-				FAEDAC1E19F0567100DCAD05 /* LSCollectionViewHelper.m in Sources */,
+				BA0255F91CB0F259002EE790 /* MTDraggableHelper.m in Sources */,
+				BA0255F71CB0F259002EE790 /* MTCardLayoutHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
