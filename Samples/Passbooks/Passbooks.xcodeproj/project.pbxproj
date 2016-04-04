@@ -30,6 +30,7 @@
 		BA0255FB1CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F51CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m */; };
 		BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA17D52F196CF6A80054D9EC /* SearchViewController.m */; };
 		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
+		C15AE6921CB254AB00640CD3 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C15AE6911CB254AB00640CD3 /* Launch.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		BA17D52E196CF6A80054D9EC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		BA17D52F196CF6A80054D9EC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		BA2A4FE9196E71760074E49E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C15AE6911CB254AB00640CD3 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Launch.storyboard; path = Passbooks/Launch.storyboard; sourceTree = "<group>"; };
+		C15AE6931CB2574600640CD3 /* MTCommonTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTCommonTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 		364AA2E318C55EBD00EC2140 = {
 			isa = PBXGroup;
 			children = (
+				C15AE6911CB254AB00640CD3 /* Launch.storyboard */,
 				BA3C686619703735004A0ADF /* MTCardLayout */,
 				364AA2F518C55EBD00EC2140 /* Passbooks */,
 				364AA31418C55EBD00EC2140 /* PassbooksTests */,
@@ -188,6 +192,7 @@
 		BA3C686619703735004A0ADF /* MTCardLayout */ = {
 			isa = PBXGroup;
 			children = (
+				C15AE6931CB2574600640CD3 /* MTCommonTypes.h */,
 				BA0255EA1CB0F259002EE790 /* MTCardLayout.h */,
 				BA0255EB1CB0F259002EE790 /* MTCardLayout.m */,
 				BA0255EC1CB0F259002EE790 /* MTCardLayoutHelper.h */,
@@ -284,6 +289,7 @@
 				364AA30818C55EBD00EC2140 /* Images.xcassets in Resources */,
 				364AA2FA18C55EBD00EC2140 /* InfoPlist.strings in Resources */,
 				364AA30318C55EBD00EC2140 /* Main.storyboard in Resources */,
+				C15AE6921CB254AB00640CD3 /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +446,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
 				INFOPLIST_FILE = "Passbooks/Passbooks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -454,7 +460,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passbooks/Passbooks-Prefix.pch";
 				INFOPLIST_FILE = "Passbooks/Passbooks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

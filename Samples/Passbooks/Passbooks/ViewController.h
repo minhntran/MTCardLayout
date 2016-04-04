@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UICollectionViewController
+@interface ViewController : UIViewController
+
+@property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 
 - (IBAction)flip:(id)sender;
 

@@ -28,11 +28,12 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 
+@property (nonatomic, strong) UICollectionViewLayoutAttributes *movingItemAttributes;
+@property (nonatomic, strong) NSIndexPath *toIndexPath;
+@property (nonatomic) CGPoint panTranslation;
+
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
-
-@property (nonatomic) CGPoint touchLocation;
-@property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
 @property (nonatomic, strong) CADisplayLink *scrollTimer;
 @property (nonatomic) _ScrollingDirection scrollingDirection;
@@ -56,15 +57,16 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         [self.collectionView addGestureRecognizer:self.longPressGestureRecognizer];
         
         self.panGestureRecognizer = [[UIPanGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(handlePanGesture:)];
+                                      initWithTarget:self
+                                     action:@selector(handlePanGesture:)];
         self.panGestureRecognizer.maximumNumberOfTouches = 1;
         self.panGestureRecognizer.delegate = self;
         [self.collectionView addGestureRecognizer:self.panGestureRecognizer];
-    }
+}
     return self;
 }
 
-- (NSIndexPath *)indexPathForItemClosestToPoint:(CGPoint)point
+- (NSIndexPath *)indexPathForItemClosestToRect:(CGRect)frame
 {
     NSArray *layoutAttrsInRect;
     NSInteger closestDist = NSIntegerMax;
@@ -73,59 +75,31 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
     
     // We need original positions of cells
     self.toIndexPath = nil;
-    layoutAttrsInRect = [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
+    layoutAttrsInRect = [self.collectionView.collectionViewLayout
+                         layoutAttributesForElementsInRect:self.collectionView.bounds];
     self.toIndexPath = toIndexPath;
+    
+    CGPoint point = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
     
     // What cell are we closest to?
     for (UICollectionViewLayoutAttributes *layoutAttr in layoutAttrsInRect) {
         if (layoutAttr.representedElementCategory == UICollectionElementCategoryCell)  {
-            if (CGRectContainsPoint(layoutAttr.frame, point)) {
-                closestDist = 0;
+            CGFloat xd = layoutAttr.center.x - point.x;
+            CGFloat yd = layoutAttr.center.y - point.y;
+            NSInteger dist = sqrtf(xd*xd + yd*yd);
+            if (dist < closestDist) {
+                closestDist = dist;
                 indexPath = layoutAttr.indexPath;
-            } else {
-                CGFloat xd = layoutAttr.center.x - point.x;
-                CGFloat yd = layoutAttr.center.y - point.y;
-                NSInteger dist = sqrtf(xd*xd + yd*yd);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    indexPath = layoutAttr.indexPath;
-                }
             }
         }
     }
     
-    // Are we closer to being the last cell in a different section?
-    NSInteger sections = [self.collectionView numberOfSections];
-    for (NSInteger i = 0; i < sections; ++i) {
-        if (i == self.fromIndexPath.section) {
-            continue;
-        }
-        NSInteger items = [self.collectionView numberOfItemsInSection:i];
-        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:items - 1 inSection:i];
-        UICollectionViewLayoutAttributes *layoutAttr;
-        CGFloat xd, yd;
-        
-        if (items > 0) {
-            layoutAttr = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:nextIndexPath];
-            xd = layoutAttr.center.x - point.x;
-            yd = layoutAttr.center.y - point.y;
-        } else {
-            // Trying to use layoutAttributesForItemAtIndexPath while section is empty causes EXC_ARITHMETIC (division by zero items)
-            // So we're going to ask for the header instead. It doesn't have to exist.
-            layoutAttr = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                                  atIndexPath:nextIndexPath];
-            xd = layoutAttr.frame.origin.x - point.x;
-            yd = layoutAttr.frame.origin.y - point.y;
-        }
-        
-        NSInteger dist = sqrtf(xd*xd + yd*yd);
-        if (dist < closestDist) {
-            closestDist = dist;
-            indexPath = layoutAttr.indexPath;
-        }
-    }
-    
     return indexPath;
+}
+
+- (CGRect)movingItemFrame
+{
+    return CGRectOffset(self.movingItemAttributes.frame, 0, self.panTranslation.y);
 }
 
 #pragma mark - Scrolling
@@ -187,30 +161,31 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         default: break;
     }
     
-    self.touchLocation  = _CGPointAdd(self.touchLocation, translation);
     self.collectionView.contentOffset = _CGPointAdd(contentOffset, translation);
+    self.panTranslation = _CGPointAdd([self.panGestureRecognizer translationInView:self.collectionView], translation);
+    [self.panGestureRecognizer setTranslation:self.panTranslation inView:self.collectionView];
     
     // Warp items while scrolling
-    NSIndexPath *indexPath = [self indexPathForItemClosestToPoint:self.touchLocation];
+    NSIndexPath *indexPath = [self indexPathForItemClosestToRect:[self movingItemFrame]];
     [self warpToIndexPath:indexPath];
 }
 
 - (void)warpToIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath == nil || [self.lastIndexPath isEqual:indexPath]) {
-        return;
-    }
-    self.lastIndexPath = indexPath;
+    BOOL validIndexPath = YES;
     
     if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:toIndexPath:)] == YES
         && [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource
             collectionView:self.collectionView
-            canMoveItemAtIndexPath:self.fromIndexPath
+            canMoveItemAtIndexPath:self.movingItemAttributes.indexPath
             toIndexPath:indexPath] == NO) {
-            return;
-        }
+            validIndexPath = NO;
+    }
+
     [self.collectionView performBatchUpdates:^{
-        self.toIndexPath = indexPath;
+        if (validIndexPath) {
+            self.toIndexPath = indexPath;
+        }
     } completion:nil];
 }
 
@@ -218,12 +193,11 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
 - (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL canDelete = NO;
     if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:canDeleteItemAtIndexPath:)])
     {
-        canDelete = [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
+        return [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
     }
-    return canDelete;
+    return NO;
 }
 
 - (void)showDeletionConfirmationViewForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated
@@ -273,7 +247,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
     if (gestureRecognizer == self.panGestureRecognizer)
     {
-        if (self.collectionView.viewMode == MTCardLayoutViewModeDefault && !self.fromIndexPath) {
+        if (self.collectionView.viewMode == MTCardLayoutViewModeDefault &&
+            !self.movingItemAttributes.indexPath) {
             return NO;
         }
         
@@ -290,7 +265,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if (gestureRecognizer == self.panGestureRecognizer && otherGestureRecognizer == self.longPressGestureRecognizer) {
+    if ((gestureRecognizer == self.panGestureRecognizer && otherGestureRecognizer == self.longPressGestureRecognizer) ||
+        (gestureRecognizer == self.longPressGestureRecognizer && otherGestureRecognizer == self.panGestureRecognizer)) {
         return YES;
     }
     return NO;
@@ -313,8 +289,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
-            self.touchLocation = [sender locationInView:self.collectionView];
-            NSIndexPath *indexPath = [self indexPathForItemClosestToPoint:self.touchLocation];
+            CGPoint touchLocation = [sender locationInView:self.collectionView];
+            NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
 
             if (indexPath == nil) {
                 return;
@@ -324,26 +300,29 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
             }
             
             // Start warping
-            self.lastIndexPath = indexPath;
-            self.fromIndexPath = indexPath;
+            self.movingItemAttributes = [[self.collectionView layoutAttributesForItemAtIndexPath:indexPath] copy];
             self.toIndexPath = indexPath;
-            [self.collectionView.collectionViewLayout invalidateLayout];
+            self.panTranslation = CGPointZero;
+            [self.collectionView performBatchUpdates:^{
+            } completion:nil];
+            
         } break;
             
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
-            if(self.fromIndexPath == nil) {
+            if(self.movingItemAttributes == nil) {
                 return;
             }
+            
             // Need these for later, but need to nil out layoutHelper's references sooner
-            NSIndexPath *fromIndexPath = self.fromIndexPath;
+            NSIndexPath *fromIndexPath = self.movingItemAttributes.indexPath;
             NSIndexPath *toIndexPath = self.toIndexPath;
             
             // Move the item
             [self.collectionView performBatchUpdates:^{
                 [dataSource collectionView:self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
                 [self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-                self.fromIndexPath = nil;
+                self.movingItemAttributes = nil;
                 self.toIndexPath = nil;
             } completion:^(BOOL finished) {
                 if ([dataSource respondsToSelector:@selector(collectionView:didMoveItemAtIndexPath:toIndexPath:)]) {
@@ -351,9 +330,7 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                 }
             }];
             
-            [self.collectionView.collectionViewLayout invalidateLayout];
             [self invalidatesScrollTimer];
-            self.lastIndexPath = nil;
         } break;
 
         default: break;
@@ -432,18 +409,20 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         }
         
     } else { // self.collectionView.viewMode == MTCardLayoutViewModeDefault
-        if (!self.fromIndexPath) {
+        if (!self.movingItemAttributes) {
             return;
         }
         
         if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
             // Scroll when necessary
-            self.touchLocation = [gestureRecognizer locationInView:self.collectionView];
+            self.panTranslation = [gestureRecognizer translationInView:self.collectionView];
+            CGPoint touchLocation = [gestureRecognizer locationInView:self.collectionView];
+            CGRect frame = [self movingItemFrame];
             
-            if (self.touchLocation.y < CGRectGetMinY(self.collectionView.bounds) + SCROLLING_EDGE_INSET) {
+            if (frame.origin.y < CGRectGetMinY(self.collectionView.bounds) + SCROLLING_EDGE_INSET) {
                 [self setupScrollTimerInDirection:_ScrollingDirectionUp];
             }
-            else if (self.touchLocation.y > (CGRectGetMaxY(self.collectionView.bounds) - SCROLLING_EDGE_INSET)) {
+            else if (touchLocation.y > (CGRectGetMaxY(self.collectionView.bounds) - SCROLLING_EDGE_INSET)) {
                 [self setupScrollTimerInDirection:_ScrollingDirectionDown];
             }
             else {
@@ -456,7 +435,7 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
             }
 
             // Warp item to finger location
-            NSIndexPath *indexPath = [self indexPathForItemClosestToPoint:self.touchLocation];
+            NSIndexPath *indexPath = [self indexPathForItemClosestToRect:frame];
             [self warpToIndexPath:indexPath];
         }
     }

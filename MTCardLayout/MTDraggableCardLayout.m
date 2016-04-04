@@ -17,6 +17,8 @@
 
 - (void)modifyAttributesForFocusedItem:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
+    layoutAttributes.frame = self.collectionView.draggableHelper.movingItemFrame;
+    
     if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:modifyDraggingItemAttributes:)]) {
         id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
         [dataSource collectionView:self.collectionView modifyDraggingItemAttributes:layoutAttributes];
@@ -28,21 +30,10 @@
     NSArray *elements = [super layoutAttributesForElementsInRect:rect];
     
     UICollectionView *collectionView = self.collectionView;
-    NSIndexPath *fromIndexPath = collectionView.draggableHelper.fromIndexPath;
+    NSIndexPath *fromIndexPath = collectionView.draggableHelper.movingItemAttributes.indexPath;
     NSIndexPath *toIndexPath = collectionView.draggableHelper.toIndexPath;
     
-    if (toIndexPath == nil) {
-        if (toIndexPath == nil) {
-            return elements;
-        }
-        for (UICollectionViewLayoutAttributes *layoutAttributes in elements) {
-            if(layoutAttributes.representedElementCategory != UICollectionElementCategoryCell) {
-                continue;
-            }
-            if ([layoutAttributes.indexPath isEqual:toIndexPath]) {
-                [self modifyAttributesForFocusedItem:layoutAttributes];
-            }
-        }
+    if (fromIndexPath == nil || toIndexPath == nil) {
         return elements;
     }
     
@@ -52,11 +43,9 @@
         }
         NSIndexPath *indexPath = layoutAttributes.indexPath;
         if ([indexPath isEqual:toIndexPath]) {
-            [self modifyAttributesForFocusedItem:layoutAttributes];
-        }
-        if([indexPath isEqual:toIndexPath]) {
             // Item's new location
             layoutAttributes.indexPath = fromIndexPath;
+            [self modifyAttributesForFocusedItem:layoutAttributes];
         }
         else {
             if(indexPath.item <= fromIndexPath.item && indexPath.item > toIndexPath.item) {

@@ -6,7 +6,7 @@
 #import "MTCardLayoutHelper.h"
 #import "SearchViewController.h"
 
-@interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable>
+@interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable, UICollectionViewDelegate>
 
 @property (nonatomic, strong) SearchViewController *searchViewController;
 @property (nonatomic, strong) NSMutableArray * items;
@@ -59,27 +59,6 @@
 	return cell;
 }
 
-- (UIImage *)collectionView:(UICollectionView *)collectionView imageForDraggingItemAtIndexPath:(NSIndexPath *)indexPath
-{
-	UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-	CGSize size = cell.bounds.size;
-	size.height = 72.0;
-	
-	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[cell.layer renderInContext:context];
-	
-	UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	return image;
-}
-
-- (CGAffineTransform)collectionView:(UICollectionView *)collectionView transformForDraggingItemAtIndexPath:(NSIndexPath *)indexPath duration:(NSTimeInterval *)duration
-{
-	return CGAffineTransformMakeScale(1.05f, 1.05f);
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -113,6 +92,11 @@
 - (UIView *)collectionView:(UICollectionView *)collectionView deletionConfirmationViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView modifyDraggingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+{
+    layoutAttributes.transform3D = CATransform3DTranslate(layoutAttributes.transform3D, 0.0, -15.0, 0.0);
 }
 
 #pragma mark SearchCell

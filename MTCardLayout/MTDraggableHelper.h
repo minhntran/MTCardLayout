@@ -2,8 +2,9 @@
 
 @interface MTDraggableHelper : NSObject
 
-@property (strong, nonatomic) NSIndexPath *fromIndexPath;
-@property (strong, nonatomic) NSIndexPath *toIndexPath;
+@property (nonatomic, readonly) UICollectionViewLayoutAttributes *movingItemAttributes;
+@property (nonatomic, readonly) NSIndexPath *toIndexPath;
+@property (nonatomic, readonly) CGRect movingItemFrame;
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView;
 
