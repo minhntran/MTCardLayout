@@ -19,9 +19,9 @@
 {
     layoutAttributes.frame = self.collectionView.draggableHelper.movingItemFrame;
     
-    if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:modifyDraggingItemAttributes:)]) {
-        id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
-        [dataSource collectionView:self.collectionView modifyDraggingItemAttributes:layoutAttributes];
+    id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
+    if ([delegate respondsToSelector:@selector(collectionView:modifyMovingItemAttributes:)]) {
+        [delegate collectionView:self.collectionView modifyMovingItemAttributes:layoutAttributes];
     }
 }
 

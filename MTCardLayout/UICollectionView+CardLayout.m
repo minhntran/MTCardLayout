@@ -41,8 +41,13 @@ static const char * MTCardLayoutHelperKey = "MTCardLayoutHelperKey";
     void (^setPresenting)() = ^{
         self.cardLayoutHelper.viewMode = viewMode;
         self.scrollEnabled = viewMode == MTCardLayoutViewModeDefault;
+        self.scrollsToTop = viewMode == MTCardLayoutViewModeDefault;
         
-        [self.collectionViewLayout invalidateLayout];
+        id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.delegate;
+
+        if ([delegate respondsToSelector:@selector(collectionViewDidChangeViewMode:)]) {
+            [delegate collectionViewDidChangeViewMode:self];
+        }
     };
 
     if (animated)
@@ -56,6 +61,7 @@ static const char * MTCardLayoutHelperKey = "MTCardLayoutHelperKey";
     else
     {
         setPresenting();
+        [self.collectionViewLayout invalidateLayout];
         if (completion) completion(TRUE);
     }
 }

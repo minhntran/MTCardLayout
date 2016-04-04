@@ -174,8 +174,10 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 {
     BOOL validIndexPath = YES;
     
-    if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:toIndexPath:)] == YES
-        && [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource
+    id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
+
+    if ([dataSource respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:toIndexPath:)] == YES
+        && [dataSource
             collectionView:self.collectionView
             canMoveItemAtIndexPath:self.movingItemAttributes.indexPath
             toIndexPath:indexPath] == NO) {
@@ -193,9 +195,11 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
 - (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:canDeleteItemAtIndexPath:)])
+    id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
+
+    if ([dataSource respondsToSelector:@selector(collectionView:canDeleteItemAtIndexPath:)])
     {
-        return [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
+        return [dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
     }
     return NO;
 }
@@ -204,8 +208,9 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 {
     if (!self.dragUpToDeleteConfirmView)
     {
-        if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:deletionConfirmationViewForItemAtIndexPath:)]) {
-            self.dragUpToDeleteConfirmView = [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource
+        id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
+        if ([delegate respondsToSelector:@selector(collectionView:deletionConfirmationViewForItemAtIndexPath:)]) {
+            self.dragUpToDeleteConfirmView = [delegate
                                               collectionView:self.collectionView deletionConfirmationViewForItemAtIndexPath:indexPath];
             if (self.dragUpToDeleteConfirmView) {
                 self.dragUpToDeleteConfirmView.center = CGPointMake(CGRectGetMidX(self.collectionView.bounds), CGRectGetMidY(self.collectionView.bounds));
@@ -253,9 +258,9 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         }
         
         CGPoint point = [gestureRecognizer locationInView:self.collectionView];
-        id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
-        if ([dataSource respondsToSelector:@selector(collectionView:shouldRecognizePanGestureAtPoint:)] &&
-            ![dataSource collectionView:self.collectionView shouldRecognizePanGestureAtPoint:point]) {
+        id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
+        if ([delegate respondsToSelector:@selector(collectionView:shouldRecognizePanGestureAtPoint:)] &&
+            ![delegate collectionView:self.collectionView shouldRecognizePanGestureAtPoint:point]) {
             return NO;
         }
     }
@@ -282,10 +287,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         return;
     }
     
-    if (![self.collectionView.dataSource conformsToProtocol:@protocol(UICollectionViewDataSource_Draggable)]) {
-        return;
-    }
     id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
+    id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
 
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
@@ -303,8 +306,7 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
             self.movingItemAttributes = [[self.collectionView layoutAttributesForItemAtIndexPath:indexPath] copy];
             self.toIndexPath = indexPath;
             self.panTranslation = CGPointZero;
-            [self.collectionView performBatchUpdates:^{
-            } completion:nil];
+            [self.collectionView performBatchUpdates:nil completion:nil];
             
         } break;
             
@@ -325,8 +327,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                 self.movingItemAttributes = nil;
                 self.toIndexPath = nil;
             } completion:^(BOOL finished) {
-                if ([dataSource respondsToSelector:@selector(collectionView:didMoveItemAtIndexPath:toIndexPath:)]) {
-                    [dataSource collectionView:self.collectionView didMoveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+                if ([delegate respondsToSelector:@selector(collectionView:didMoveItemAtIndexPath:toIndexPath:)]) {
+                    [delegate collectionView:self.collectionView didMoveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
                 }
             }];
             
@@ -385,6 +387,7 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         if (gestureRecognizer.state == UIGestureRecognizerStateEnded || gestureRecognizer.state == UIGestureRecognizerStateCancelled)
         {
             id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)collectionView.dataSource;
+            id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)collectionView.delegate;
             if (canDelete && gestureRecognizer.state != UIGestureRecognizerStateCancelled && translation.y < -DRAG_ACTION_LIMIT)
             {
                 // Delete the item
@@ -393,8 +396,8 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                     [dataSource collectionView:collectionView deleteItemAtIndexPath:indexPath];
                     [collectionView deleteItemsAtIndexPaths:@[indexPath]];
                 } completion:^(BOOL finished) {
-                    if ([dataSource respondsToSelector:@selector(collectionView:didDeleteItemAtIndexPath:)]) {
-                        [dataSource collectionView:self.collectionView didDeleteItemAtIndexPath:indexPath];
+                    if ([delegate respondsToSelector:@selector(collectionView:didDeleteItemAtIndexPath:)]) {
+                        [delegate collectionView:self.collectionView didDeleteItemAtIndexPath:indexPath];
                     }
                 }];
             }

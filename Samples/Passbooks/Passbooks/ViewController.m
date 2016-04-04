@@ -6,7 +6,7 @@
 #import "MTCardLayoutHelper.h"
 #import "SearchViewController.h"
 
-@interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable, UICollectionViewDelegate>
+@interface ViewController ()<SearchViewControllerDelegate, UICollectionViewDataSource_Draggable, UICollectionViewDelegate_Draggable>
 
 @property (nonatomic, strong) SearchViewController *searchViewController;
 @property (nonatomic, strong) NSMutableArray * items;
@@ -94,7 +94,7 @@
     return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView modifyDraggingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+- (void)collectionView:(UICollectionView *)collectionView modifyMovingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     layoutAttributes.transform3D = CATransform3DTranslate(layoutAttributes.transform3D, 0.0, -15.0, 0.0);
 }

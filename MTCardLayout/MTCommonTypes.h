@@ -53,19 +53,27 @@ typedef struct
 
 @optional
 
-- (void)collectionView:(UICollectionView *)collectionView modifyDraggingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes;
-
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+
+- (void)collectionView:(UICollectionView *)collectionView deleteItemAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@protocol UICollectionViewDelegate_Draggable <UICollectionViewDelegate>
+
+@optional
+
+- (void)collectionViewDidChangeViewMode:(UICollectionView *)collectionView;
+
+- (void)collectionView:(UICollectionView *)collectionView modifyMovingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes;
+
 - (void)collectionView:(UICollectionView *)collectionView didMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 - (UIView *)collectionView:(UICollectionView *)collectionView deletionConfirmationViewForItemAtIndexPath:(NSIndexPath *)indexPath;
 
-- (void)collectionView:(UICollectionView *)collectionView deleteItemAtIndexPath:(NSIndexPath *)indexPath;
-- (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
-
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldRecognizeTapGestureAtPoint:(CGPoint)point;
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldRecognizePanGestureAtPoint:(CGPoint)point;
-
 
 @end
