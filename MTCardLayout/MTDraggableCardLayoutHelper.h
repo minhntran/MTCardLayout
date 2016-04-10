@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface MTDraggableHelper : NSObject
+@interface MTDraggableCardLayoutHelper : NSObject
 
 @property (nonatomic, readonly) UICollectionViewLayoutAttributes *movingItemAttributes;
 @property (nonatomic, readonly) NSIndexPath *toIndexPath;

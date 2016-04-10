@@ -2,27 +2,27 @@
 #import "UICollectionView+CardLayout.h"
 #import "MTCardLayoutHelper.h"
 
-static const char * MTCardLayoutHelperKey = "MTCardLayoutHelperKey";
+static const char MTCardLayoutHelperKey;
 
 @implementation UICollectionView(CardLayout)
 
 - (MTCardLayoutHelper *)cardLayoutHelper
 {
-    MTCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCardLayoutHelperKey);
+    MTCardLayoutHelper *helper = objc_getAssociatedObject(self, &MTCardLayoutHelperKey);
     if(helper == nil) {
         helper = [[MTCardLayoutHelper alloc] initWithCollectionView:self];
-        objc_setAssociatedObject(self, MTCardLayoutHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &MTCardLayoutHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return helper;
 }
 
 - (void)cardLayoutCleanup
 {
-	MTCardLayoutHelper *helper = objc_getAssociatedObject(self, MTCardLayoutHelperKey);
+	MTCardLayoutHelper *helper = objc_getAssociatedObject(self, &MTCardLayoutHelperKey);
 	if (helper)
 	{
 		[helper unbindFromCollectionView:self];
-		objc_setAssociatedObject(self, MTCardLayoutHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &MTCardLayoutHelperKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 }
 

@@ -46,16 +46,13 @@ typedef struct
 } MTCardLayoutEffects;
 
 @protocol UICollectionViewDataSource_Draggable <UICollectionViewDataSource>
-@required
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath;
-- (BOOL)collectionView:(UICollectionView *)collectionView canDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional
 
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)collectionView:(UICollectionView *)collectionView canDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
-
 - (void)collectionView:(UICollectionView *)collectionView deleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
@@ -65,13 +62,11 @@ typedef struct
 @optional
 
 - (void)collectionViewDidChangeViewMode:(UICollectionView *)collectionView;
-
 - (void)collectionView:(UICollectionView *)collectionView didMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)collectionView:(UICollectionView *)collectionView willDeleteItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL cancel))completion;
 - (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
-
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldRecognizeTapGestureAtPoint:(CGPoint)point;
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldRecognizePanGestureAtPoint:(CGPoint)point;
 
-- (void)collectionView:(UICollectionView *)collectionView willDeleteItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL undo))completion;
 
 @end

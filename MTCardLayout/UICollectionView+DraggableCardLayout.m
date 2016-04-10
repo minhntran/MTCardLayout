@@ -1,16 +1,16 @@
 #import <objc/runtime.h>
-#import "MTDraggableHelper.h"
+#import "MTDraggableCardLayoutHelper.h"
 
-static const char * MTDraggableHelperKey = "MTDraggableHelperKey";
+static const char MTDraggableCardLayoutHelperKey;
 
 @implementation UICollectionView (DraggableCardLayout)
 
-- (MTDraggableHelper *)draggableHelper
+- (MTDraggableCardLayoutHelper *)draggableCardLayoutHelper
 {
-    MTDraggableHelper *helper = objc_getAssociatedObject(self, MTDraggableHelperKey);
+    MTDraggableCardLayoutHelper *helper = objc_getAssociatedObject(self, &MTDraggableCardLayoutHelperKey);
     if(helper == nil) {
-        helper = [[MTDraggableHelper alloc] initWithCollectionView:self];
-        objc_setAssociatedObject(self, MTDraggableHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        helper = [[MTDraggableCardLayoutHelper alloc] initWithCollectionView:self];
+        objc_setAssociatedObject(self, &MTDraggableCardLayoutHelperKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return helper;
 }
