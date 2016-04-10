@@ -25,11 +25,11 @@
 		BA0255F61CB0F259002EE790 /* MTCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255EB1CB0F259002EE790 /* MTCardLayout.m */; };
 		BA0255F71CB0F259002EE790 /* MTCardLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */; };
 		BA0255F81CB0F259002EE790 /* MTDraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */; };
-		BA0255F91CB0F259002EE790 /* MTDraggableHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */; };
 		BA0255FA1CB0F259002EE790 /* UICollectionView+CardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */; };
 		BA0255FB1CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0255F51CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m */; };
 		BA17D530196CF6A80054D9EC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA17D52F196CF6A80054D9EC /* SearchViewController.m */; };
 		BA2A4FEA196E71760074E49E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2A4FE9196E71760074E49E /* QuartzCore.framework */; };
+		BAA882501CBA388C00CA8035 /* MTDraggableCardLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA8824F1CBA388C00CA8035 /* MTDraggableCardLayoutHelper.m */; };
 		C15AE6921CB254AB00640CD3 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C15AE6911CB254AB00640CD3 /* Launch.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -71,8 +71,6 @@
 		BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardLayoutHelper.m; sourceTree = "<group>"; };
 		BA0255EE1CB0F259002EE790 /* MTDraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayout.h; sourceTree = "<group>"; };
 		BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayout.m; sourceTree = "<group>"; };
-		BA0255F01CB0F259002EE790 /* MTDraggableHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableHelper.h; sourceTree = "<group>"; };
-		BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableHelper.m; sourceTree = "<group>"; };
 		BA0255F21CB0F259002EE790 /* UICollectionView+CardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CardLayout.h"; sourceTree = "<group>"; };
 		BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CardLayout.m"; sourceTree = "<group>"; };
 		BA0255F41CB0F259002EE790 /* UICollectionView+DraggableCardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+DraggableCardLayout.h"; sourceTree = "<group>"; };
@@ -80,6 +78,8 @@
 		BA17D52E196CF6A80054D9EC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		BA17D52F196CF6A80054D9EC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		BA2A4FE9196E71760074E49E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BAA8824E1CBA388C00CA8035 /* MTDraggableCardLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDraggableCardLayoutHelper.h; sourceTree = "<group>"; };
+		BAA8824F1CBA388C00CA8035 /* MTDraggableCardLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDraggableCardLayoutHelper.m; sourceTree = "<group>"; };
 		C15AE6911CB254AB00640CD3 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Launch.storyboard; path = Passbooks/Launch.storyboard; sourceTree = "<group>"; };
 		C15AE6931CB2574600640CD3 /* MTCommonTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTCommonTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,8 +199,8 @@
 				BA0255ED1CB0F259002EE790 /* MTCardLayoutHelper.m */,
 				BA0255EE1CB0F259002EE790 /* MTDraggableCardLayout.h */,
 				BA0255EF1CB0F259002EE790 /* MTDraggableCardLayout.m */,
-				BA0255F01CB0F259002EE790 /* MTDraggableHelper.h */,
-				BA0255F11CB0F259002EE790 /* MTDraggableHelper.m */,
+				BAA8824E1CBA388C00CA8035 /* MTDraggableCardLayoutHelper.h */,
+				BAA8824F1CBA388C00CA8035 /* MTDraggableCardLayoutHelper.m */,
 				BA0255F21CB0F259002EE790 /* UICollectionView+CardLayout.h */,
 				BA0255F31CB0F259002EE790 /* UICollectionView+CardLayout.m */,
 				BA0255F41CB0F259002EE790 /* UICollectionView+DraggableCardLayout.h */,
@@ -309,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA0255F61CB0F259002EE790 /* MTCardLayout.m in Sources */,
+				BAA882501CBA388C00CA8035 /* MTDraggableCardLayoutHelper.m in Sources */,
 				BA0255FB1CB0F259002EE790 /* UICollectionView+DraggableCardLayout.m in Sources */,
 				364AA30618C55EBD00EC2140 /* ViewController.m in Sources */,
 				364AA30018C55EBD00EC2140 /* AppDelegate.m in Sources */,
@@ -317,7 +318,6 @@
 				364AA2FC18C55EBD00EC2140 /* main.m in Sources */,
 				BA0255FA1CB0F259002EE790 /* UICollectionView+CardLayout.m in Sources */,
 				364AA32B18C5606600EC2140 /* PassCell.m in Sources */,
-				BA0255F91CB0F259002EE790 /* MTDraggableHelper.m in Sources */,
 				BA0255F71CB0F259002EE790 /* MTCardLayoutHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

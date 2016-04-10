@@ -1,11 +1,11 @@
 #import "MTDraggableCardLayout.h"
 #import "UICollectionView+CardLayout.h"
 #import "UICollectionView+DraggableCardLayout.h"
-#import "MTDraggableHelper.h"
+#import "MTDraggableCardLayoutHelper.h"
 
 @interface UICollectionView (DraggableCardLayoutPrivate)
 
-@property (nonatomic, readonly) MTDraggableHelper *draggableHelper;
+@property (nonatomic, readonly) MTDraggableCardLayoutHelper *draggableCardLayoutHelper;
 
 @end
 
@@ -20,8 +20,8 @@
     NSArray *elements = [super layoutAttributesForElementsInRect:rect];
     
     UICollectionView *collectionView = self.collectionView;
-    NSIndexPath *fromIndexPath = collectionView.draggableHelper.movingItemAttributes.indexPath;
-    NSIndexPath *toIndexPath = collectionView.draggableHelper.toIndexPath;
+    NSIndexPath *fromIndexPath = collectionView.draggableCardLayoutHelper.movingItemAttributes.indexPath;
+    NSIndexPath *toIndexPath = collectionView.draggableCardLayoutHelper.toIndexPath;
     
     if (fromIndexPath == nil || toIndexPath == nil) {
         return elements;
@@ -35,7 +35,7 @@
         if ([indexPath isEqual:toIndexPath]) {
             // Item's new location
             layoutAttributes.indexPath = fromIndexPath;
-            layoutAttributes.frame = CGRectOffset(self.collectionView.draggableHelper.movingItemFrame, 0, -8);
+            layoutAttributes.frame = CGRectOffset(self.collectionView.draggableCardLayoutHelper.movingItemFrame, 0, -8);
         }
         else if (toIndexPath) {
             if(indexPath.item <= fromIndexPath.item && indexPath.item > toIndexPath.item) {
@@ -55,9 +55,11 @@
 - (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewLayoutAttributes *finalAttributes = [super finalLayoutAttributesForDisappearingItemAtIndexPath:indexPath];
-    UICollectionViewLayoutAttributes *movingItemAttributes = self.collectionView.draggableHelper.movingItemAttributes;
-    if ([movingItemAttributes.indexPath isEqual:indexPath] && self.collectionView.draggableHelper.toIndexPath == nil) {
-        finalAttributes.frame = self.collectionView.draggableHelper.movingItemFrame;
+    UICollectionViewLayoutAttributes *movingItemAttributes = self.collectionView.draggableCardLayoutHelper.movingItemAttributes;
+
+    if ([movingItemAttributes.indexPath isEqual:indexPath] &&
+        self.collectionView.draggableCardLayoutHelper.toIndexPath == nil) {
+        finalAttributes.frame = self.collectionView.draggableCardLayoutHelper.movingItemFrame;
     }
 
     return finalAttributes;

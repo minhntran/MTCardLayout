@@ -1,4 +1,4 @@
-#import "MTDraggableHelper.h"
+#import "MTDraggableCardLayoutHelper.h"
 #import "MTCommonTypes.h"
 #import "UICollectionView+CardLayout.h"
 #import "UICollectionView+DraggableCardLayout.h"
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
     MTDraggingActionDismissPresenting,
 };
 
-@interface MTDraggableHelper() <UIGestureRecognizerDelegate>
+@interface MTDraggableCardLayoutHelper() <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 
@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
 
 @end
 
-@implementation MTDraggableHelper
+@implementation MTDraggableCardLayoutHelper
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView
 {
@@ -110,7 +110,35 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
     return MIN(alphaH, alphaV);
 }
 
-#pragma mark - Scrolling
+- (void)updateMovingCell
+{
+    NSIndexPath *indexPath = self.movingItemAttributes.indexPath;
+    NSAssert(indexPath, @"movingItemAttributes cannot be nil");
+    
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    if (!cell) return; // Cell is not visible
+    
+    cell.frame = self.movingItemFrame;
+    cell.alpha = self.movingItemAlpha;
+}
+
+- (void)clearDraggingAction
+{
+    self.movingItemAttributes = nil;
+    self.toIndexPath = nil;
+    self.movingItemTranslation = CGPointZero;
+    self.draggingAction = MTDraggingActionNone;
+}
+
+#pragma mark - Moving/Scrolling
+
+- (BOOL)canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
+    
+    return [dataSource respondsToSelector:@selector(collectionView:canMoveItemAtIndexPath:)] &&
+    [dataSource collectionView:self.collectionView canMoveItemAtIndexPath:indexPath];
+}
 
 - (void)invalidatesScrollTimer
 {
@@ -185,19 +213,17 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
     } completion:nil];
 }
 
-#pragma mark - Item deletion
+#pragma mark - Deleting
 
 - (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath
 {
     id<UICollectionViewDataSource_Draggable> dataSource = (id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource;
 
-    if ([dataSource respondsToSelector:@selector(collectionView:canDeleteItemAtIndexPath:)]) {
-        return [dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
-    }
-    return NO;
+    return [dataSource respondsToSelector:@selector(collectionView:canDeleteItemAtIndexPath:)] &&
+        [dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
 }
 
-- (void)confirmDeletingItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL undo))completion
+- (void)confirmDeletingItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL cancel))completion
 {
     id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
     if ([delegate respondsToSelector:@selector(collectionView:willDeleteItemAtIndexPath:completion:)]) {
@@ -236,10 +262,10 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
         [self updateMovingCell];
         
         collectionView.userInteractionEnabled = NO;
-        [self confirmDeletingItemAtIndexPath:indexPath completion:^(BOOL undo) {
+        [self confirmDeletingItemAtIndexPath:indexPath completion:^(BOOL cancel) {
             collectionView.userInteractionEnabled = YES;
             
-            if (undo) {
+            if (cancel) {
                 self.movingItemTranslation = CGPointZero;
                 [UIView animateWithDuration:0.25 animations:^{
                     [self updateMovingCell];
@@ -264,27 +290,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
     } completion:nil];
 }
 
-- (void)clearDraggingAction
-{
-    self.movingItemAttributes = nil;
-    self.toIndexPath = nil;
-    self.movingItemTranslation = CGPointZero;
-    self.draggingAction = MTDraggingActionNone;
-}
-
-- (void)updateMovingCell
-{
-    NSIndexPath *indexPath = self.movingItemAttributes.indexPath;
-    NSAssert(indexPath, @"movingItemAttributes cannot be nil");
-    
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    if (!cell) return; // Cell is not visible
-    
-    cell.frame = self.movingItemFrame;
-    cell.alpha = self.movingItemAlpha;
-}
-
-#pragma mark - Guesture recognizer delegate
+#pragma mark - Gesture Recognizers
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -349,7 +355,8 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
             if (indexPath == nil) {
                 return;
             }
-            if (![dataSource collectionView:collectionView canMoveItemAtIndexPath:indexPath]) {
+            
+            if (![self canMoveItemAtIndexPath:indexPath]) {
                 return;
             }
             
@@ -407,11 +414,9 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
                 }
                 self.draggingAction = MTDraggingActionDismissPresenting;
                 self.movingItemAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
-                self.movingItemTranslation = CGPointZero;
             } else if ([self canDeleteItemAtIndexPath:indexPath]) {
                 self.draggingAction = MTDraggingActionSwipeToDelete;
                 self.movingItemAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
-                self.movingItemTranslation = CGPointZero;
             }
         }
     }
@@ -480,11 +485,11 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
             NSAssert(indexPath, @"movingItemAttributes cannot be nil");
             CGPoint translation = self.movingItemTranslation;
 
-            BOOL canDelete = [self canDeleteItemAtIndexPath:indexPath];
-            
-            if (canDelete && gestureRecognizer.state != UIGestureRecognizerStateCancelled &&
-                (translation.y < -DRAG_ACTION_LIMIT || translation.x < -DRAG_ACTION_LIMIT))  {
-                UISwipeGestureRecognizerDirection direction = (self.draggingAction == MTDraggingActionSwipeToDelete) ? UISwipeGestureRecognizerDirectionLeft : UISwipeGestureRecognizerDirectionUp;
+            if (gestureRecognizer.state != UIGestureRecognizerStateCancelled &&
+                (translation.y < -DRAG_ACTION_LIMIT || translation.x < -DRAG_ACTION_LIMIT) &&
+                [self canDeleteItemAtIndexPath:indexPath]) {
+                UISwipeGestureRecognizerDirection direction = (self.draggingAction == MTDraggingActionSwipeToDelete) ?
+                    UISwipeGestureRecognizerDirectionLeft : UISwipeGestureRecognizerDirectionUp;
                 [self finalizeDeletingItemWithSwipeDirection:direction];
             } else {
                 // Return item to original position
