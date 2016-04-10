@@ -69,8 +69,10 @@ static NSString * const kContentOffsetKeyPath = @"contentOffset";
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (gestureRecognizer == self.tapGestureRecognizer)
-    {
+    if (gestureRecognizer == self.tapGestureRecognizer) {
+        if ([self.collectionView numberOfItemsInSection:0] == 0) {
+            return NO;
+        }
         CGPoint point = [gestureRecognizer locationInView:self.collectionView];
         id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
         if ([delegate respondsToSelector:@selector(collectionView:shouldRecognizeTapGestureAtPoint:)] &&

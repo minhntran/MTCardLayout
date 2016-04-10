@@ -15,16 +15,6 @@
 
 @implementation MTDraggableCardLayout
 
-- (void)modifyAttributesForFocusedItem:(UICollectionViewLayoutAttributes *)layoutAttributes
-{
-    layoutAttributes.frame = self.collectionView.draggableHelper.movingItemFrame;
-    
-    id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
-    if ([delegate respondsToSelector:@selector(collectionView:modifyMovingItemAttributes:)]) {
-        [delegate collectionView:self.collectionView modifyMovingItemAttributes:layoutAttributes];
-    }
-}
-
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSArray *elements = [super layoutAttributesForElementsInRect:rect];
@@ -45,9 +35,9 @@
         if ([indexPath isEqual:toIndexPath]) {
             // Item's new location
             layoutAttributes.indexPath = fromIndexPath;
-            [self modifyAttributesForFocusedItem:layoutAttributes];
+            layoutAttributes.frame = CGRectOffset(self.collectionView.draggableHelper.movingItemFrame, 0, -8);
         }
-        else {
+        else if (toIndexPath) {
             if(indexPath.item <= fromIndexPath.item && indexPath.item > toIndexPath.item) {
                 // Item moved back
                 layoutAttributes.indexPath = [NSIndexPath indexPathForItem:indexPath.item - 1 inSection:indexPath.section];
@@ -60,6 +50,17 @@
     }
     
     return elements;
+}
+
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewLayoutAttributes *finalAttributes = [super finalLayoutAttributesForDisappearingItemAtIndexPath:indexPath];
+    UICollectionViewLayoutAttributes *movingItemAttributes = self.collectionView.draggableHelper.movingItemAttributes;
+    if ([movingItemAttributes.indexPath isEqual:indexPath] && self.collectionView.draggableHelper.toIndexPath == nil) {
+        finalAttributes.frame = self.collectionView.draggableHelper.movingItemFrame;
+    }
+
+    return finalAttributes;
 }
 
 @end

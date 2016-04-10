@@ -89,16 +89,6 @@
 {
 }
 
-- (UIView *)collectionView:(UICollectionView *)collectionView deletionConfirmationViewForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trashcan"] highlightedImage:[UIImage imageNamed:@"trashcan_red"]];
-}
-
-- (void)collectionView:(UICollectionView *)collectionView modifyMovingItemAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
-{
-    layoutAttributes.transform3D = CATransform3DTranslate(layoutAttributes.transform3D, 0.0, -15.0, 0.0);
-}
-
 #pragma mark SearchCell
 
 - (void)searchControllerWillBeginSearch:(SearchViewController *)controller
