@@ -80,6 +80,12 @@
     return YES;
 }
 
+- (UIView *)collectionView:(UICollectionView *)collectionView deletionIndicatorViewForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *imageName = (self.collectionView.viewMode == MTCardLayoutViewModeDefault) ? @"delete_small" : @"delete";
+    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView deleteItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.items removeObjectAtIndex:indexPath.item];

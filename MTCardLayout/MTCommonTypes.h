@@ -63,6 +63,7 @@ typedef struct
 
 - (void)collectionViewDidChangeViewMode:(UICollectionView *)collectionView;
 - (void)collectionView:(UICollectionView *)collectionView didMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (UIView *)collectionView:(UICollectionView *)collectionView deletionIndicatorViewForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)collectionView:(UICollectionView *)collectionView willDeleteItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL cancel))completion;
 - (void)collectionView:(UICollectionView *)collectionView didDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldRecognizeTapGestureAtPoint:(CGPoint)point;

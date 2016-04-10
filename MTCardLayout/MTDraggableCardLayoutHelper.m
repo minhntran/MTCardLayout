@@ -2,6 +2,9 @@
 #import "MTCommonTypes.h"
 #import "UICollectionView+CardLayout.h"
 #import "UICollectionView+DraggableCardLayout.h"
+#import "MTDraggableCardLayout.h"
+
+#define DEFAULT_ANIMATION_DURATION 0.25
 
 #define SCROLLING_SPEED 300.f
 #define SCROLLING_EDGE_INSET 50.f
@@ -35,6 +38,8 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
 
 @property (nonatomic, strong) CADisplayLink *scrollTimer;
 @property (nonatomic) MTScrollingDirection scrollingDirection;
+
+@property (nonatomic, strong) UIView *deletionIndicatorView;
 
 @end
 
@@ -223,6 +228,74 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
         [dataSource collectionView:self.collectionView canDeleteItemAtIndexPath:indexPath];
 }
 
+- (void)showDeletionIndicatorAnimated:(BOOL)animated
+{
+    UICollectionView *collectionView = self.collectionView;
+    NSIndexPath *indexPath = self.movingItemAttributes.indexPath;
+    NSAssert(indexPath, @"movingItemAttributes cannot be nil");
+
+    if (self.deletionIndicatorView) {
+        [self.deletionIndicatorView removeFromSuperview];
+        self.deletionIndicatorView = nil;
+    }
+    
+    id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)collectionView.delegate;
+    if ([delegate respondsToSelector:@selector(collectionView:deletionIndicatorViewForItemAtIndexPath:)]) {
+        self.deletionIndicatorView = [delegate collectionView:collectionView deletionIndicatorViewForItemAtIndexPath:indexPath];
+        if (self.deletionIndicatorView) {
+            CGPoint center;
+            if (collectionView.viewMode == MTCardLayoutViewModePresenting) {
+                center = CGPointMake(CGRectGetMidX(collectionView.bounds), CGRectGetMidY(collectionView.bounds));
+            } else {
+                CGRect frame = self.movingItemAttributes.frame;
+                MTDraggableCardLayout *cardLayout = (MTDraggableCardLayout *)collectionView.collectionViewLayout;
+                NSAssert([cardLayout isKindOfClass:[MTDraggableCardLayout class]], @"Collection layout is not of correct class");
+                frame.size.height = cardLayout.metrics.minimumVisibleHeight;
+                CGFloat padding = (frame.size.height - self.deletionIndicatorView.frame.size.height) / 2;
+                center = CGPointMake(CGRectGetMaxX(frame) - padding - self.deletionIndicatorView.frame.size.width / 2, CGRectGetMidY(frame));
+            }
+            
+            self.deletionIndicatorView.center = center;
+            self.deletionIndicatorView.layer.transform = CATransform3DMakeTranslation(0, 0, 1);
+            [collectionView addSubview:self.deletionIndicatorView];
+            if (animated) {
+                self.deletionIndicatorView.layer.transform = CATransform3DScale(self.deletionIndicatorView.layer.transform, 0.1, 0.1, 0.1);
+                [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
+                    self.deletionIndicatorView.layer.transform = CATransform3DMakeTranslation(0, 0, 1);
+                }];
+            }
+        }
+    }
+}
+
+- (void)updateDeletionIndicator
+{
+    if (self.deletionIndicatorView) {
+        CGFloat offset = MIN(self.movingItemTranslation.x, self.movingItemTranslation.y); // expecting negative value
+        self.deletionIndicatorView.alpha = MAX(0.0, MIN(1.0, -offset/DRAG_ACTION_LIMIT));
+        if ([self.deletionIndicatorView isKindOfClass:[UIImageView class]]) {
+            ((UIImageView *)self.deletionIndicatorView).highlighted = offset < -DRAG_ACTION_LIMIT;
+        }
+    }
+}
+
+- (void)hideDeletionIndicatorViewAnimated:(BOOL)animated
+{
+    if (animated) {
+        [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
+            self.deletionIndicatorView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self.deletionIndicatorView removeFromSuperview];
+            self.deletionIndicatorView.alpha = 1.0;
+            self.deletionIndicatorView = nil;
+        }];
+    } else {
+        [self.deletionIndicatorView removeFromSuperview];
+        self.deletionIndicatorView = nil;
+    }
+}
+
+
 - (void)confirmDeletingItemAtIndexPath:(NSIndexPath *)indexPath completion:(void(^)(BOOL cancel))completion
 {
     id<UICollectionViewDelegate_Draggable> delegate = (id<UICollectionViewDelegate_Draggable>)self.collectionView.delegate;
@@ -241,7 +314,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
 
     CGRect originalFrame = self.movingItemAttributes.frame;
     
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
         // Continue to move item off screen
         CGPoint translation = CGPointZero;
         switch (direction) {
@@ -267,7 +340,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
             
             if (cancel) {
                 self.movingItemTranslation = CGPointZero;
-                [UIView animateWithDuration:0.25 animations:^{
+                [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
                     [self updateMovingCell];
                 }];
             } else {
@@ -414,23 +487,31 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
                 }
                 self.draggingAction = MTDraggingActionDismissPresenting;
                 self.movingItemAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+                [self showDeletionIndicatorAnimated:YES];
             } else if ([self canDeleteItemAtIndexPath:indexPath]) {
                 self.draggingAction = MTDraggingActionSwipeToDelete;
                 self.movingItemAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+                [self showDeletionIndicatorAnimated:YES];
             }
         }
     }
     
+    if (self.draggingAction == MTDraggingActionNone) {
+        return;
+    }
+    
+    NSIndexPath *indexPath = self.movingItemAttributes.indexPath;
+    NSAssert(indexPath, @"movingItemAttributes cannot be nil");
+
     if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
        switch (self.draggingAction) {
             case MTDraggingActionDismissPresenting: {
                 self.movingItemTranslation = CGPointMake(0, [gestureRecognizer translationInView:collectionView].y);
                 [self updateMovingCell];
+                [self updateDeletionIndicator];
                 
                 if (self.movingItemTranslation.y >= DRAG_ACTION_LIMIT)
                 {
-                    NSIndexPath *indexPath = self.movingItemAttributes.indexPath;
-                    NSAssert(indexPath, @"movingItemAttributes cannot be nil");
                     [collectionView deselectAndNotifyDelegate:indexPath];
                     [self clearDraggingAction];
                     [collectionView performBatchUpdates:nil completion:nil];
@@ -440,14 +521,10 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
             case MTDraggingActionSwipeToDelete: {
                 self.movingItemTranslation = CGPointMake(MIN(0, [gestureRecognizer translationInView:collectionView].x), 0);
                 [self updateMovingCell];
+                [self updateDeletionIndicator];
             } break;
                 
             case MTDraggingActionReorder: {
-                NSIndexPath *fromIndexPath = self.movingItemAttributes.indexPath;
-                NSAssert(fromIndexPath, @"movingItemAttributes cannot be nil");
-                NSIndexPath *toIndexPath = self.toIndexPath;
-                NSAssert(toIndexPath, @"toIndexPath cannot be nil");
-
                 self.movingItemTranslation = CGPointMake(0, [gestureRecognizer translationInView:self.collectionView].y);
                 CGPoint touchLocation = [gestureRecognizer locationInView:self.collectionView];
                 CGRect frame = [self movingItemFrame];
@@ -494,11 +571,12 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
             } else {
                 // Return item to original position
                 self.movingItemTranslation = CGPointZero;
-                [UIView animateWithDuration:0.3 animations:^{
+                [UIView animateWithDuration:DEFAULT_ANIMATION_DURATION animations:^{
                     [self updateMovingCell];
                 } completion:nil];
                 [self clearDraggingAction];
             }
+            [self hideDeletionIndicatorViewAnimated:YES];
         }
     }
 }
