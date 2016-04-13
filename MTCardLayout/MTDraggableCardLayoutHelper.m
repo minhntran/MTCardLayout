@@ -252,7 +252,7 @@ typedef NS_ENUM(NSInteger, MTDraggingAction) {
                 NSAssert([cardLayout isKindOfClass:[MTDraggableCardLayout class]], @"Collection layout is not of correct class");
                 frame.size.height = cardLayout.metrics.minimumVisibleHeight;
                 CGFloat padding = (frame.size.height - self.deletionIndicatorView.frame.size.height) / 2;
-                center = CGPointMake(CGRectGetMaxX(frame) - padding - self.deletionIndicatorView.frame.size.width / 2, CGRectGetMidY(frame));
+                center = CGPointMake(padding + self.deletionIndicatorView.frame.size.width / 2, CGRectGetMidY(frame));
             }
             
             self.deletionIndicatorView.center = center;
