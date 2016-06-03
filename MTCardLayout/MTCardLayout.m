@@ -139,13 +139,13 @@
     effectiveBounds.origin.y += self.collectionView.contentInset.top;
     effectiveBounds.origin.y += _metrics.listingInsets.top;
     effectiveBounds.size.height -= _metrics.listingInsets.top + _metrics.listingInsets.bottom;
-	rect = CGRectIntersection(rect, effectiveBounds);
+	  rect = CGRectIntersection(rect, effectiveBounds);
     
-    NSRange range = rangeForVisibleCells(rect, [self.collectionView numberOfItemsInSection:0] , _metrics);
-    
+    NSInteger numberOfItems = [self numberOfItemsInCollectionViewSection:0];
+    NSRange range = rangeForVisibleCells(rect, numberOfItems, _metrics);
     NSMutableArray *cells = [NSMutableArray arrayWithCapacity:range.length + 2];
     
-	NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+	  NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 
     for (NSUInteger item=range.location; item < (range.location + range.length); item++)
     {
@@ -163,7 +163,7 @@
 
 - (CGSize)collectionViewContentSize
 {
-    return collectionViewSize(self.collectionView.bounds, self.collectionView.contentInset, [self.collectionView numberOfItemsInSection:0], _metrics);
+    return collectionViewSize(self.collectionView.bounds, self.collectionView.contentInset, [self numberOfItemsInCollectionViewSection:0], _metrics);
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
@@ -283,6 +283,16 @@ CGRect frameForUnselectedCard(NSIndexPath *indexPath, NSIndexPath *indexPathSele
     }
     
     return f;
+}
+
+/**
+ Returns the number of items in the given section. If the section does not
+ exist, returns 0 instead of throwing an exception.
+*/
+- (NSInteger)numberOfItemsInCollectionViewSection:(NSInteger)section {
+  return [self.collectionView numberOfSections] > section ?
+  [self.collectionView numberOfItemsInSection:section] :
+  0;
 }
 
 @end
