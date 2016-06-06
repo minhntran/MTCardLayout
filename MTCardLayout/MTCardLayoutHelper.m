@@ -1,4 +1,5 @@
 #import "MTCardLayoutHelper.h"
+#import "MTCardLayout.h"
 #import "UICollectionView+CardLayout.h"
 
 static int kObservingCollectionViewOffset;
@@ -41,28 +42,28 @@ static NSString * const kContentOffsetKeyPath = @"contentOffset";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (context == &kObservingCollectionViewOffset) {
+    if (context == &kObservingCollectionViewOffset) {
         UICollectionView *collectionView = self.collectionView;
-        if (collectionView && collectionView.dragging)
-        {
+        if (collectionView && collectionView.dragging) {
             UIEdgeInsets edgeInsets = collectionView.contentInset;
             BOOL bounces = collectionView.bounces;
-            
-            if (collectionView.contentOffset.y < - 100 - edgeInsets.top && collectionView.scrollEnabled)
+            MTCardLayout *layout = (MTCardLayout *)collectionView.collectionViewLayout;
+          
+            if (collectionView.contentOffset.y < - 100 - edgeInsets.top && collectionView.scrollEnabled && [layout isKindOfClass:[MTCardLayout class]] && layout.effects.collapsesAll == true)
             {
                 collectionView.contentInset = UIEdgeInsetsMake(-collectionView.contentOffset.y, edgeInsets.left, edgeInsets.bottom, edgeInsets.right);
                 collectionView.bounces = NO;
-                
+        
                 [self.collectionView setViewMode:MTCardLayoutViewModePresenting animated:YES completion:^(BOOL finished) {
                     collectionView.contentInset = edgeInsets;
                     collectionView.bounces = bounces;
                 }];
             }
         }
-	}
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
+  }
+  else {
+      [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+  }
 }
 
 #pragma mark - Tap gesture
