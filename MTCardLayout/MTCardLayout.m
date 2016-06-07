@@ -182,7 +182,7 @@
 		targetContentOffset.y += self.collectionView.contentInset.top;
         CGFloat flexibleHeight = _metrics.flexibleTop;
         if (targetContentOffset.y < flexibleHeight) {
-            targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
+            targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? proposedContentOffset.y : flexibleHeight;
         } else {
             if (_metrics.visibleHeight > 0) {
                 targetContentOffset.y = roundf((targetContentOffset.y - flexibleHeight) / _metrics.visibleHeight) * _metrics.visibleHeight + flexibleHeight;
