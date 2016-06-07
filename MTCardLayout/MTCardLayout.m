@@ -85,6 +85,7 @@
 
 - (void)prepareLayout
 {
+  [super prepareLayout];
 	_metrics.visibleHeight = _metrics.minimumVisibleHeight;
     if (_effects.spreading)
     {
@@ -92,7 +93,10 @@
         if (numberOfCards > 0)
         {
             CGFloat height = (self.collectionView.frame.size.height - self.collectionView.contentInset.top - _metrics.listingInsets.top - _metrics.flexibleTop) / numberOfCards;
-            if (height > _metrics.visibleHeight) _metrics.visibleHeight = height;
+            if (height > _metrics.visibleHeight)
+            {
+              _metrics.visibleHeight = height;
+            }
         }
     }
 }
