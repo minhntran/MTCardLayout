@@ -50,7 +50,7 @@
     m.presentingInsets = UIEdgeInsetsMake(00, 0, 44, 0);
     m.listingInsets = UIEdgeInsetsMake(20.0, 0, 0, 0);
     m.minimumVisibleHeight = 74;
-	m.flexibleTop = 0.0;
+    m.flexibleTop = 0.0;
     m.stackedVisibleHeight = 6.0;
     m.maxStackedCards = 5;
 
@@ -58,7 +58,8 @@
     e.sticksTop         = YES;
     e.bouncesTop        = YES;
     e.spreading         = NO;
-    
+    e.touchToCollapseCard = YES;
+  
     _metrics = m;
     _effects = e;
     
@@ -219,7 +220,7 @@ NSRange rangeForVisibleCells(CGRect rect, NSInteger count, MTCardLayoutMetrics m
 
 CGSize collectionViewSize(CGRect bounds, UIEdgeInsets contentInset, NSInteger count, MTCardLayoutMetrics m)
 {
-	CGFloat height = count * m.visibleHeight + m.flexibleTop + m.listingInsets.top + fmodf(bounds.size.height - contentInset.top - m.listingInsets.top, m.visibleHeight);
+    CGFloat height = count * m.visibleHeight + m.flexibleTop + m.listingInsets.top + fmodf(bounds.size.height - contentInset.top - m.listingInsets.top, m.visibleHeight);
     return CGSizeMake(bounds.size.width, height);
 }
 

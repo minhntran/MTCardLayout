@@ -87,7 +87,11 @@ static NSString * const kContentOffsetKeyPath = @"contentOffset";
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)gestureRecognizer
 {
-    if (self.viewMode == MTCardLayoutViewModePresenting) {
+    MTCardLayout *layout = (MTCardLayout *)self.collectionView.collectionViewLayout;
+    if (![layout isKindOfClass:[MTCardLayout class]]) {
+      return;
+    }
+    if (layout.effects.touchToCollapseCard == true && self.viewMode == MTCardLayoutViewModePresenting) {
         [self.collectionView setViewMode:MTCardLayoutViewModeDefault animated:YES completion:nil];
         NSArray *selectedIndexPaths = [self.collectionView indexPathsForSelectedItems];
         [selectedIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * indexPath, NSUInteger idx, BOOL *stop) {

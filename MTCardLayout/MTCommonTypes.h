@@ -42,7 +42,10 @@ typedef struct
     
     /// Allows all cards to collapse to the bottom
     BOOL collapsesAll;
-    
+  
+    /// Allows to collapse a card in Presenting mode by touching it
+    BOOL touchToCollapseCard;
+  
 } MTCardLayoutEffects;
 
 @protocol UICollectionViewDataSource_Draggable <UICollectionViewDataSource>
