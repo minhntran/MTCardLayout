@@ -50,7 +50,7 @@
     m.presentingInsets = UIEdgeInsetsMake(00, 0, 44, 0);
     m.listingInsets = UIEdgeInsetsMake(20.0, 0, 0, 0);
     m.minimumVisibleHeight = 74;
-	m.flexibleTop = 0.0;
+    m.flexibleTop = 0.0;
     m.stackedVisibleHeight = 6.0;
     m.maxStackedCards = 5;
 
@@ -58,7 +58,8 @@
     e.sticksTop         = YES;
     e.bouncesTop        = YES;
     e.spreading         = NO;
-    
+    e.touchToCollapseCard = YES;
+  
     _metrics = m;
     _effects = e;
     
@@ -85,6 +86,7 @@
 
 - (void)prepareLayout
 {
+  [super prepareLayout];
 	_metrics.visibleHeight = _metrics.minimumVisibleHeight;
     if (_effects.spreading)
     {
@@ -92,7 +94,10 @@
         if (numberOfCards > 0)
         {
             CGFloat height = (self.collectionView.frame.size.height - self.collectionView.contentInset.top - _metrics.listingInsets.top - _metrics.flexibleTop) / numberOfCards;
-            if (height > _metrics.visibleHeight) _metrics.visibleHeight = height;
+            if (height > _metrics.visibleHeight)
+            {
+              _metrics.visibleHeight = height;
+            }
         }
     }
 }
@@ -139,13 +144,13 @@
     effectiveBounds.origin.y += self.collectionView.contentInset.top;
     effectiveBounds.origin.y += _metrics.listingInsets.top;
     effectiveBounds.size.height -= _metrics.listingInsets.top + _metrics.listingInsets.bottom;
-	rect = CGRectIntersection(rect, effectiveBounds);
+	  rect = CGRectIntersection(rect, effectiveBounds);
     
-    NSRange range = rangeForVisibleCells(rect, [self.collectionView numberOfItemsInSection:0] , _metrics);
-    
+    NSInteger numberOfItems = [self numberOfItemsInCollectionViewSection:0];
+    NSRange range = rangeForVisibleCells(rect, numberOfItems, _metrics);
     NSMutableArray *cells = [NSMutableArray arrayWithCapacity:range.length + 2];
     
-	NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+	  NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 
     for (NSUInteger item=range.location; item < (range.location + range.length); item++)
     {
@@ -163,7 +168,7 @@
 
 - (CGSize)collectionViewContentSize
 {
-    return collectionViewSize(self.collectionView.bounds, self.collectionView.contentInset, [self.collectionView numberOfItemsInSection:0], _metrics);
+    return collectionViewSize(self.collectionView.bounds, self.collectionView.contentInset, [self numberOfItemsInCollectionViewSection:0], _metrics);
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
@@ -182,7 +187,7 @@
 		targetContentOffset.y += self.collectionView.contentInset.top;
         CGFloat flexibleHeight = _metrics.flexibleTop;
         if (targetContentOffset.y < flexibleHeight) {
-            targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
+            targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? proposedContentOffset.y : flexibleHeight;
         } else {
             if (_metrics.visibleHeight > 0) {
                 targetContentOffset.y = roundf((targetContentOffset.y - flexibleHeight) / _metrics.visibleHeight) * _metrics.visibleHeight + flexibleHeight;
@@ -215,7 +220,7 @@ NSRange rangeForVisibleCells(CGRect rect, NSInteger count, MTCardLayoutMetrics m
 
 CGSize collectionViewSize(CGRect bounds, UIEdgeInsets contentInset, NSInteger count, MTCardLayoutMetrics m)
 {
-	CGFloat height = count * m.visibleHeight + m.flexibleTop + m.listingInsets.top + fmodf(bounds.size.height - contentInset.top - m.listingInsets.top, m.visibleHeight);
+    CGFloat height = count * m.visibleHeight + m.flexibleTop + m.listingInsets.top + fmodf(bounds.size.height - contentInset.top - m.listingInsets.top, m.visibleHeight);
     return CGSizeMake(bounds.size.width, height);
 }
 
@@ -283,6 +288,16 @@ CGRect frameForUnselectedCard(NSIndexPath *indexPath, NSIndexPath *indexPathSele
     }
     
     return f;
+}
+
+/**
+ Returns the number of items in the given section. If the section does not
+ exist, returns 0 instead of throwing an exception.
+*/
+- (NSInteger)numberOfItemsInCollectionViewSection:(NSInteger)section {
+  return [self.collectionView numberOfSections] > section ?
+  [self.collectionView numberOfItemsInSection:section] :
+  0;
 }
 
 @end
