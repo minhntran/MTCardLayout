@@ -23,6 +23,7 @@ static NSString * const kContentOffsetKeyPath = @"contentOffset";
         self.collectionView = collectionView;
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                             action:@selector(handleTapGesture:)];
+        self.tapGestureRecognizer.cancelsTouchesInView = false;
         self.tapGestureRecognizer.delegate = self;
         [self.collectionView addGestureRecognizer:self.tapGestureRecognizer];
         
