@@ -187,6 +187,7 @@
 		targetContentOffset.y += self.collectionView.contentInset.top;
         CGFloat flexibleHeight = _metrics.flexibleTop;
         if (targetContentOffset.y < flexibleHeight) {
+            // Snap to either 0 or flexibleHeight offset when the position is somewhere in between
             targetContentOffset.y = (targetContentOffset.y < flexibleHeight / 2) ? 0.0 : flexibleHeight;
         } else {
             if (_metrics.visibleHeight > 0) {
